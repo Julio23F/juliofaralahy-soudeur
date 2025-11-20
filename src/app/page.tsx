@@ -27,7 +27,7 @@ export default function Home() {
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-6 pt-24 pb-16">
         <div className="max-w-4xl mx-auto text-center space-y-8">
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <h2 className="text-xl md:text-2xl font-bold tracking-wider">DEVELOPER</h2>
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-impact leading-none" style={{
               background: 'linear-gradient(135deg, #4169e8 0%, #6b8eeb 100%)',
@@ -37,7 +37,18 @@ export default function Home() {
             }}>
               UX/UI DESIGNER
             </h1>
-          </div>
+          </div> */}
+          <aside className="font-karantina text-center text-zinc-800 text-6xl xl:flex xl:flex-col xl:items-start xl:justify-center">
+            <h1 className="text-zinc-800 xl:text-[140px] 2xl:text-[180px] text-5xl tracking-5">DEVELOPER</h1>
+            <h1 className="xl:text-[160px] 2xl:text-[200px] text-8xl leading-18 xl:leading-26 2xl:leading-32 bg-linear-to-b/srgb bg-clip-text from-blue-700 to-gray-600/50" 
+              style={{
+                background: 'linear-gradient(135deg, #4169e8 0%, #6b8eeb 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text'
+              }}
+            >UX/UI DESIGNER</h1>
+          </aside>
 
           <div className="flex justify-center py-8">
             <div className="relative w-72 h-80 md:w-80 md:h-96">
