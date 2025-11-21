@@ -1,6 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Karantina } from 'next/font/google'
+
+const karantina = Karantina({
+  weight: ['400'],
+  subsets: ['latin'],
+})
 
 export default function Home() {
   const [projectFilter, setProjectFilter] = useState("UX/UI Design");
@@ -25,61 +31,46 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-6 pt-24 pb-16">
-        <div className="max-w-4xl mx-auto text-center space-y-8">
-          {/* <div className="space-y-2">
-            <h2 className="text-xl md:text-2xl font-bold tracking-wider">DEVELOPER</h2>
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-impact leading-none" style={{
-              background: 'linear-gradient(135deg, #4169e8 0%, #6b8eeb 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text'
-            }}>
-              UX/UI DESIGNER
-            </h1>
-          </div> */}
-          <aside className="font-karantina text-center text-zinc-800 text-6xl xl:flex xl:flex-col xl:items-start xl:justify-center">
-            <h1 className="text-zinc-800 xl:text-[140px] 2xl:text-[180px] text-5xl tracking-5">DEVELOPER</h1>
-            <h1 className="xl:text-[160px] 2xl:text-[200px] text-8xl leading-18 xl:leading-26 2xl:leading-32 bg-linear-to-b/srgb bg-clip-text from-blue-700 to-gray-600/50" 
-              style={{
-                background: 'linear-gradient(135deg, #4169e8 0%, #6b8eeb 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                backgroundClip: 'text'
-              }}
-            >UX/UI DESIGNER</h1>
-          </aside>
+      <section className="min-h-screen flex items-center justify-center px-2 pt-24 pb-16">
+  <div className="max-w-4xl mx-auto space-y-" style={{width: "100%",}}>
+    <aside className={`${karantina.className}  text-center text-zinc-800 text-6xl xl:flex xl:flex-col xl:items-start xl:justify-center`}>
+      <h1 className="tracking-[8px] text-zinc-800 xl:text-[140px] 2xl:text-[180px] text-5xl"
+        style={{
+          fontWeight: "bolder",
+        }}
+      >
+        DEVELOPER
+      </h1>
+      <h1 className="tracking-[8px] -mt-6 xl:-mt-22 2xl:-mt-16 xl:text-[160px] 2xl:text-[200px] text-8xl" 
+        style={{
+          background: 'linear-gradient(135deg, #4169e8 0%, #8ce913 100%)',
+          WebkitBackgroundClip: 'text',
+          WebkitTextFillColor: 'transparent',
+          backgroundClip: 'text',
+          fontWeight: "bolder",
+        }}
+      >
+        UX/UI DESIGNER
+      </h1>
+    </aside>
 
-          <div className="flex justify-center py-8">
-            <div className="relative w-72 h-80 md:w-80 md:h-96">
-              <img
-                src="https://ext.same-assets.com/405950729/3076081621.png"
-                alt="Mario Ralison"
-                className="w-full h-full object-cover object-top rounded-t-full"
-                style={{
-                  clipPath: 'ellipse(50% 50% at 50% 40%)'
-                }}
-              />
-            </div>
-          </div>
+    <div className="space-y-5 max-w-2xl  ">
+      <p className="text-lg md:text-xl font-semibold">"Crée avec passion, avance avec vision"</p>
+      <p className="text-sm md:text-base text-gray-700">
+        Je me spécialise dans le développement informatique et l'UX UI design.
+      </p>
+    </div>
 
-          <div className="space-y-4 max-w-2xl mx-auto">
-            <p className="text-lg md:text-xl font-semibold">"Crée avec passion, avance avec vision"</p>
-            <p className="text-sm md:text-base text-gray-700">
-              Je me spécialise dans le développement informatique et l'UX UI design.
-            </p>
-          </div>
-
-          <div className="flex flex-wrap gap-4 justify-center pt-6">
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm md:text-base font-medium bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all px-6 md:px-8 py-3 md:py-4">
-              Contactez-moi →
-            </button>
-            <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm md:text-base font-medium border-2 border-gray-300 bg-background shadow hover:bg-gray-50 transition-all px-6 md:px-8 py-3 md:py-4">
-              Voir mon CV ↓
-            </button>
-          </div>
-        </div>
-      </section>
+    <div className="flex flex-wrap gap-4 pt-4">
+      <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm md:text-base font-medium bg-primary text-primary-foreground shadow-lg hover:bg-primary/90 transition-all px-6 md:px-8 py-3 md:py-4">
+        Contactez-moi →
+      </button>
+      <button className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-full text-sm md:text-base font-medium border-2 border-gray-300 bg-background shadow hover:bg-gray-50 transition-all px-6 md:px-8 py-3 md:py-4">
+        Voir mon CV ↓
+      </button>
+    </div>
+  </div>
+</section>
 
       {/* Mes Propos Section */}
       <section className="py-24 px-6">
