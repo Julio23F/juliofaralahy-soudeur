@@ -22,21 +22,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <img src={project.image} alt={project.title} style={styles.cardImage} />
         </div>
         <div style={styles.cardContent}>
-            <div style={styles.tagsContainer}>
-            {project.tags.map((tag, idx) => (
-                <span key={idx} style={styles.tag}>
-                {tag}
-                </span>
-            ))}
+            <div style={styles.cardProjectDescription}>
+                <div style={styles.tagsContainer}>
+                    {project.tags.map((tag, idx) => (
+                        <span key={idx} style={styles.tag}>
+                        {tag}
+                        </span>
+                    ))}
+                </div>
+                <h3 style={styles.cardTitle}>{project.title}</h3>
+                <p style={styles.cardDescription}>{project.description}</p>
+                <button style={styles.detailsButton}>
+                Détails
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+                </button>
             </div>
-            <h3 style={styles.cardTitle}>{project.title}</h3>
-            <p style={styles.cardDescription}>{project.description}</p>
-            <button style={styles.detailsButton}>
-            Détails
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
-                <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-            </button>
         </div>
     </div>
   );
@@ -312,14 +314,15 @@ const styles = {
     justifyContent: 'center',
   },
   card: {
+    position: "relative",
     width: '90%',
     backgroundColor: '#ffffff',
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: 'none',
-    display: 'flex',
-    flexDirection: 'row' as const,
-    minHeight: '500px',
+    // display: 'flex',
+    // flexDirection: 'row' as const,
+    minHeight: '520px',
   },
   cardImageContainer: {
     flex: '0 0 55%',
@@ -327,6 +330,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     padding: '40px',
+    height: "100%",
     position: 'relative' as const,
     borderRadius: '24px 0 0 24px',
   },
@@ -348,33 +352,50 @@ const styles = {
     maxHeight: '400px',
   },
   cardContent: {
-    flex: '0 0 45%',
-    padding: '40px',
+    position: 'absolute' as const,
+    top: '0px',
+    bottom: '0px',
+    left: '0px',
+    right: '0px',
+    
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'center',
-    backgroundColor: '#f9fafb',
+    // background: 'linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 100%)',
+    background: 'linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%)',
+    // backdropFilter: 'blur(1px)',
+    // border: "solid red 2px"
+  },
+  cardProjectDescription: {
+    // border: "solid red 5px", 
+    position: "absolute", 
+    bottom: 0, 
+    right: 0, 
+    left: 0,
+    // padding: '40px',
+    padding: "20px",
   },
   cardTitle: {
     fontSize: '2.5rem',
     fontWeight: 'bold',
-    color: '#1f2937',
-    marginBottom: '16px',
-    marginTop: '20px',
+    color: '#ffffff',
+    // marginBottom: '16px',
+    marginTop: '15px',
   },
   cardDescription: {
     fontSize: '1.125rem',
-    color: '#6b7280',
+    color: '#ffffff',
     lineHeight: '1.7',
-    marginBottom: '32px',
+    marginBottom: '10px',
   },
   tagsContainer: {
     display: 'flex',
     flexWrap: 'wrap' as const,
     gap: '8px',
+    width: "70%"
   },
   tag: {
-    backgroundColor: '#d4fc79',
+    backgroundColor: '#ccfd16',
     padding: '8px 16px',
     borderRadius: '16px',
     fontSize: '0.875rem',
