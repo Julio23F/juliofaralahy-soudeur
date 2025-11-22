@@ -63,6 +63,7 @@
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
     background-image:
@@ -70,8 +71,12 @@
       linear-gradient(90deg, #e4e4e7 1px, transparent 1px);
     background-size: 45px 45px;
     background-position: -1px -1px;
+
+    /* Fond fixe */
+    background-attachment: fixed;
   }
 }
+
 
 @layer utilities {
   .text-impact {

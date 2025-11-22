@@ -48,7 +48,7 @@ interface ProjectsSectionProps {
 }
 
 const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilter, setFilter: externalSetFilter }) => {
-  const [internalFilter, setInternalFilter] = useState("Tous les projets");
+  const [internalFilter, setInternalFilter] = useState("UX/UI Design");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
@@ -96,10 +96,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
     }
   ];
 
-  const filters = ["Tous les projets", "Web", "Mobile"];
+  const filters = ["UX/UI Design", "Web", "Mobile"];
 
   // Filtrer les projets selon le filtre sélectionné
-  const filteredProjects = filter === "Tous les projets" 
+  const filteredProjects = filter === "UX/UI Design" 
     ? allProjects 
     : allProjects.filter(project => project.type.toLowerCase() === filter.toLowerCase());
 
@@ -334,7 +334,7 @@ const styles = {
     position: 'absolute' as const,
     top: '24px',
     left: '24px',
-    backgroundColor: 'rgba(212, 252, 121, 0.95)',
+    backgroundColor: '#ffffff',
     color: '#1f2937',
     padding: '8px 16px',
     borderRadius: '16px',
