@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { MoveRight, MoveLeft, Download, ArrowUpRight } from "lucide-react"
 
 interface Project {
   title: string;
@@ -16,30 +17,42 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
   return (
-    <div style={styles.card}>
-        <div style={{ ...styles.cardImageContainer, background: project.gradient }}>
-            <div style={styles.statusBadge}>{project.status}</div>
-            <img src={project.image} alt={project.title} style={styles.cardImage} />
-        </div>
-        <div style={styles.cardContent}>
-            <div style={styles.cardProjectDescription}>
-                <div style={styles.tagsContainer}>
-                    {project.tags.map((tag, idx) => (
-                        <span key={idx} style={styles.tag}>
-                        {tag}
-                        </span>
-                    ))}
-                </div>
-                <h3 style={styles.cardTitle}>{project.title}</h3>
-                <p style={styles.cardDescription}>{project.description}</p>
+    <div style={{
+      ...styles.card,
+      backgroundImage: `url(${project.image})`,
+      backgroundSize: 'cover',
+    //   backgroundSize: '80%',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
+      <div style={styles.statusBadge}>
+        {project.status}
+      </div>
+      
+      <div style={styles.cardContent}>
+        <div style={styles.cardProjectDescription}>
+            <div style={styles.tagsContainer}>
+                {project.tags.map((tag, idx) => (
+                <span key={idx} style={styles.tag}>
+                    {tag}
+                </span>
+                ))}
+            </div>
+            
+            <h3 style={styles.cardTitle}>{project.title}</h3>
+            <p style={styles.cardDescription}>{project.description}</p>
+            <div style={styles.cardButtonActions}>
+                <button style={styles.secondaryButton}>
+                    <span>Télécharger</span>
+                    <Download absoluteStrokeWidth size={18} />
+                </button>
                 <button style={styles.detailsButton}>
-                Détails
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+                    <span>Détails</span>
+                    <ArrowUpRight absoluteStrokeWidth size={18}/>
                 </button>
             </div>
         </div>
+      </div>
     </div>
   );
 };
@@ -49,63 +62,100 @@ interface ProjectsSectionProps {
   setFilter?: (filter: string) => void;
 }
 
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilter, setFilter: externalSetFilter }) => {
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({ 
+  filter: externalFilter, 
+  setFilter: externalSetFilter 
+}) => {
   const [internalFilter, setInternalFilter] = useState("UX/UI Design");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
-  
-  // Utiliser le filtre externe s'il existe, sinon utiliser le filtre interne
+
   const filter = externalFilter !== undefined ? externalFilter : internalFilter;
   const setFilter = externalSetFilter || setInternalFilter;
 
   const allProjects: Project[] = [
     {
-      title: "DROPAPP",
-      description: "Conception, développement et production d'une application de dropshipping",
-      image: "https://ext.same-assets.com/405950729/1359461707.png",
+      title: "musevibes",
+      description: "Application mobile de streaming musical",
+      image: "/images/musevibes.jpeg",
       tags: ["Figma", "Typescript", "React Native", "NativeWind", "PostgreSQL", "NestJS"],
       gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
       type: "Mobile",
       status: "En développement"
     },
     {
-      title: "ALAIVO",
-      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-      image: "https://ext.same-assets.com/405950729/1359461707.png",
+      title: "i-TAKALO",
+      description: "Application mobile de don et vente des articles, divers vêtements et autres.",
+      image: "/images/itakalo.webp",
       tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
       status: "Terminé"
     },
     {
-      title: "SMARTSENA",
-      description: "Application réseau social d'e-commerce à Madagascar.",
-      image: "https://ext.same-assets.com/405950729/2828925519.jpeg",
+      title: "domestik",
+      description: "Application mobile collaborative de gestion des tâches",
+      image: "/images/domestik.jpeg",
       tags: ["En phase analyse", "Figma", "Wireframe", "User flow", "Components", "User Interface", "Prototypage"],
       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)",
-      type: "Web",
-      status: "En analyse"
+      type: "Mobile",
+      status: "Terminé"
     },
     {
-      title: "i-TAKALO",
-      description: "Application mobile de don et vente des articles, divers vêtements et autres.",
-      image: "https://ext.same-assets.com/405950729/2961876309.png",
+      title: "Agritech",
+      description: "Solution mobile connectée pour la qualité des produits agricoles",
+      image: "/images/agritech.jpeg",
       tags: ["En développement", "Figma", "Audit", "User flow", "Wireframe", "Components", "User Interface", "Prototypage"],
       gradient: "linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 50%, #ddd6fe 100%)",
       type: "Mobile",
-      status: "En développement"
-    }
+      status: "Terminé"
+    },
+
+    {
+        title: "portfolio",
+        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+        image: "/images/portfolio.jpeg",
+        tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+        type: "Web",
+        status: "Terminé"
+    },
+    {
+        title: "portfolio2",
+        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+        image: "/images/portfolio2.png",
+        tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+        type: "Web",
+        status: "Terminé"
+    },
+    {
+        title: "velya",
+        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+        image: "/images/velya.png",
+        tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+        type: "Web",
+        status: "Terminé"
+    },
+    {
+        title: "youstudy",
+        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+        image: "/images/youstudy.jpeg",
+        tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+        type: "Web",
+        status: "Terminé"
+    },
   ];
 
   const filters = ["UX/UI Design", "Web", "Mobile"];
 
-  // Filtrer les projets selon le filtre sélectionné
   const filteredProjects = filter === "UX/UI Design" 
     ? allProjects 
     : allProjects.filter(project => project.type.toLowerCase() === filter.toLowerCase());
 
-  // Réinitialiser l'index quand le filtre change
   useEffect(() => {
     setCurrentIndex(0);
   }, [filter]);
@@ -127,7 +177,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
     goToSlide(prevIndex);
   };
 
-  // Auto-play (optionnel)
   useEffect(() => {
     if (filteredProjects.length === 0) return;
     
@@ -138,13 +187,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
     return () => clearInterval(interval);
   }, [currentIndex, filteredProjects.length]);
 
-  // Gérer le cas où il n'y a pas de projets filtrés
   if (filteredProjects.length === 0) {
     return (
       <section style={styles.section}>
         <div style={styles.container}>
           <h2 style={styles.sectionTitle}>PROJETS</h2>
-
+          
           <div style={styles.filterContainer}>
             {filters.map((filterOption) => (
               <button
@@ -169,7 +217,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
     <section style={styles.section}>
       <div style={styles.container}>
         <h2 style={styles.sectionTitle}>PROJETS</h2>
-
+        
         <div style={styles.filterContainer}>
           {filters.map((filterOption) => (
             <button
@@ -183,50 +231,34 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
         </div>
 
         <div style={styles.carouselWrapper}>
-          {/* Bouton précédent */}
-          {filteredProjects.length > 1 && (
-            <button
-              onClick={goToPrev}
-              style={styles.navButton}
-              aria-label="Projet précédent"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M15 18l-6-6 6-6" />
-              </svg>
-            </button>
-          )}
+            {filteredProjects.length > 1 && (
+                <button onClick={goToPrev} style={styles.navButton}>
+                <MoveLeft absoluteStrokeWidth size={18}/>
+                </button>
+            )}
 
-          {/* Carrousel */}
-          <div style={styles.carouselContainer} ref={carouselRef}>
-            <div
-              style={{
-                ...styles.carouselTrack,
-                transform: `translateX(-${currentIndex * 100}%)`,
-              }}
-            >
-              {filteredProjects.map((project, idx) => (
-                <div key={idx} style={styles.carouselSlide}>
-                  <ProjectCard project={project} />
+            <div style={styles.carouselContainer} ref={carouselRef}>
+                <div 
+                style={{
+                    ...styles.carouselTrack,
+                    transform: `translateX(-${currentIndex * 100}%)`
+                }}
+                >
+                {filteredProjects.map((project, idx) => (
+                    <div key={idx} style={styles.carouselSlide}>
+                    <ProjectCard project={project} />
+                    </div>
+                ))}
                 </div>
-              ))}
             </div>
-          </div>
 
-          {/* Bouton suivant */}
-          {filteredProjects.length > 1 && (
-            <button
-              onClick={goToNext}
-              style={styles.navButton}
-              aria-label="Projet suivant"
-            >
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M9 18l6-6-6-6" />
-              </svg>
-            </button>
-          )}
+            {filteredProjects.length > 1 && (
+                <button onClick={goToNext} style={styles.navButton}>
+                <MoveRight absoluteStrokeWidth size={18}/>
+                </button>
+            )}
         </div>
 
-        {/* Pagination */}
         {filteredProjects.length > 1 && (
           <div style={styles.pagination}>
             {filteredProjects.map((_, idx) => (
@@ -247,7 +279,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({ filter: externalFilte
 const styles = {
   section: {
     padding: '60px 20px',
-    // backgroundColor: '#ffffff',
   },
   container: {
     maxWidth: '1400px',
@@ -259,8 +290,6 @@ const styles = {
     fontSize: '120px',
     color: "#27272a",
     fontWeight: 'bold',
-    // marginBottom: '40px',
-
     textAlign: 'center' as const,
   },
   filterContainer: {
@@ -302,7 +331,6 @@ const styles = {
     flex: 1,
     overflow: 'hidden',
     position: 'relative' as const,
-    // borderRadius: '24px',
   },
   carouselTrack: {
     display: 'flex',
@@ -314,25 +342,12 @@ const styles = {
     justifyContent: 'center',
   },
   card: {
-    position: "relative",
+    position: "relative" as const,
     width: '90%',
-    backgroundColor: '#ffffff',
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: 'none',
-    // display: 'flex',
-    // flexDirection: 'row' as const,
     minHeight: '520px',
-  },
-  cardImageContainer: {
-    flex: '0 0 55%',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: '40px',
-    height: "100%",
-    position: 'relative' as const,
-    borderRadius: '24px 0 0 24px',
   },
   statusBadge: {
     position: 'absolute' as const,
@@ -344,12 +359,7 @@ const styles = {
     borderRadius: '16px',
     fontSize: '14px',
     fontWeight: '600',
-  },
-  cardImage: {
-    width: '100%',
-    height: '100%',
-    objectFit: 'contain' as const,
-    maxHeight: '400px',
+    zIndex: 2,
   },
   cardContent: {
     position: 'absolute' as const,
@@ -357,29 +367,22 @@ const styles = {
     bottom: '0px',
     left: '0px',
     right: '0px',
-    
     display: 'flex',
     flexDirection: 'column' as const,
     justifyContent: 'center',
-    // background: 'linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 70%, rgba(0, 0, 0, 0) 100%)',
     background: 'linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0) 100%)',
-    // backdropFilter: 'blur(1px)',
-    // border: "solid red 2px"
   },
   cardProjectDescription: {
-    // border: "solid red 5px", 
-    position: "absolute", 
-    bottom: 0, 
-    right: 0, 
+    position: "absolute" as const,
+    bottom: 0,
+    right: 0,
     left: 0,
-    // padding: '40px',
     padding: "20px",
   },
   cardTitle: {
     fontSize: '2.5rem',
     fontWeight: 'bold',
     color: '#ffffff',
-    // marginBottom: '16px',
     marginTop: '15px',
   },
   cardDescription: {
@@ -396,26 +399,49 @@ const styles = {
   },
   tag: {
     backgroundColor: '#ccfd16',
-    padding: '8px 16px',
+    padding: '7px 10px',
     borderRadius: '16px',
     fontSize: '0.875rem',
     color: '#1f2937',
     fontWeight: '600',
   },
+  cardButtonActions: {
+    display: "flex",
+    gap: '1em'
+  },
   detailsButton: {
     display: 'inline-flex',
+    gap: '0.7rem',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '14px 32px',
+    padding: '0.75rem 2rem',
     backgroundColor: '#3b82f6',
+    border: '1px solid #3b82f6',
+
     color: '#ffffff',
     fontSize: '16px',
     fontWeight: '600',
-    border: 'none',
+    // border: 'none',
     borderRadius: '24px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
     alignSelf: 'flex-start',
+  },
+  secondaryButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: '0.7rem',
+    whiteSpace: 'nowrap',
+    borderRadius: '9999px',
+    fontSize: '1rem',
+    fontWeight: '500',
+    border: '1px solid #d1d5db',
+    backgroundColor: 'white',
+    boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+    padding: '0.75rem 2rem',
+    cursor: 'pointer',
+    transition: 'all 0.3s',
   },
   navButton: {
     width: '48px',

@@ -420,10 +420,16 @@ const styles = {
     fontSize: '140px',
     fontWeight: 'bolder',
     margin: 0,
+    // backgroundColor: "red",
+    lineHeight: "0.85em"
+
   },
   title2: {
+    lineHeight: "0.85em",
+
+
     letterSpacing: '0.5rem',
-    marginTop: '-5.5rem',
+    // marginTop: '-5.5rem',
     fontSize: '140px',
     background: 'linear-gradient(135deg, #4169e8 0%, red 100%)',
     WebkitBackgroundClip: 'text',
@@ -431,9 +437,13 @@ const styles = {
     backgroundClip: 'text',
     fontWeight: 'bolder',
     margin: 0,
+    // border: "solid blue 2px"
   },
   heroContent: {
+    // border: "solid blue 2px",
+    marginTop: "2em",
     maxWidth: '42rem',
+    lineHeight: '0.6em'
   },
   subtitle: {
     fontSize: '1.25rem',
@@ -448,7 +458,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap',
     gap: '1rem',
-    paddingTop: '1rem',
+    paddingTop: '2rem',
   },
   primaryButton: {
     display: 'inline-flex',
@@ -509,6 +519,10 @@ const styles = {
     fontWeight: 'bolder',
     // fontWeight: '900',
     textAlign: 'center',
+    width: '50%',
+    lineHeight: "1em",
+    // backgroundColor: "red",
+    margin: 'auto'
   },
   
   // About
