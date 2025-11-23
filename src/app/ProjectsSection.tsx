@@ -378,18 +378,21 @@ const styles = {
     right: 0,
     left: 0,
     padding: "20px",
+    // border: "solid red 5px"
   },
   cardTitle: {
     fontSize: '2.5rem',
     fontWeight: 'bold',
     color: '#ffffff',
-    marginTop: '15px',
+    marginTop: '17px',
+    // border: "solid red 2px",
+    lineHeight: "1em"
   },
   cardDescription: {
     fontSize: '1.125rem',
     color: '#ffffff',
     lineHeight: '1.7',
-    marginBottom: '10px',
+    marginBottom: '15px',
   },
   tagsContainer: {
     display: 'flex',
