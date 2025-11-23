@@ -9,6 +9,7 @@ interface Project {
   gradient: string;
   type: string;
   status: string;
+  apk: string;
 }
 
 interface ProjectCardProps {
@@ -42,7 +43,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
             <h3 style={styles.cardTitle}>{project.title}</h3>
             <p style={styles.cardDescription}>{project.description}</p>
             <div style={styles.cardButtonActions}>
-                <button style={styles.secondaryButton}>
+                <button 
+                    style={{
+                        ...styles.secondaryButton,
+                        opacity: project.apk === "" ? 0.5 : 1,
+                        cursor: project.apk === "" ? "not-allowed" : "pointer"
+                      }}
+                    disabled={project.apk === ""}
+                    
+                    onClick={() => window.open(`${project.apk}`, "_blank")}
+                >
                     <span>Télécharger</span>
                     <Download absoluteStrokeWidth size={18} />
                 </button>
@@ -82,7 +92,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       tags: ["Figma", "Typescript", "React Native", "NativeWind", "PostgreSQL", "NestJS"],
       gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
       type: "Mobile",
-      status: "En développement"
+      status: "En développement",
+      apk: "/apk/base.apk",
     },
     {
       title: "i-TAKALO",
@@ -91,7 +102,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
-      status: "Terminé"
+      status: "Terminé",
+      apk: "/apk/base.apk",
     },
     {
       title: "domestik",
@@ -100,7 +112,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       tags: ["En phase analyse", "Figma", "Wireframe", "User flow", "Components", "User Interface", "Prototypage"],
       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)",
       type: "Mobile",
-      status: "Terminé"
+      status: "Terminé",
+      apk: "",
     },
     {
       title: "Agritech",
@@ -109,7 +122,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       tags: ["En développement", "Figma", "Audit", "User flow", "Wireframe", "Components", "User Interface", "Prototypage"],
       gradient: "linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 50%, #ddd6fe 100%)",
       type: "Mobile",
-      status: "Terminé"
+      status: "Terminé",
+      apk: "",
     },
 
     {
@@ -119,7 +133,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
         gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
         type: "Web",
-        status: "Terminé"
+        status: "Terminé",
+        apk: "",
     },
     {
         title: "portfolio2",
@@ -128,7 +143,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
         gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
         type: "Web",
-        status: "Terminé"
+        status: "Terminé",
+        apk: "",
     },
     {
         title: "velya",
@@ -137,7 +153,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
         gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
         type: "Web",
-        status: "Terminé"
+        status: "Terminé",
+        apk: "",
     },
     {
         title: "youstudy",
@@ -146,7 +163,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
         gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
         type: "Web",
-        status: "Terminé"
+        status: "Terminé",
+        apk: "",
     },
   ];
 
