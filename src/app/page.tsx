@@ -359,7 +359,7 @@ const styles = {
   
   // Header
   header: {
-    position: 'fixed',
+    position: "fixed" as React.CSSProperties["position"],
     top: 0,
     left: 0,
     right: 0,
