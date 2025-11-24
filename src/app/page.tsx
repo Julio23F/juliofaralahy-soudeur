@@ -90,27 +90,27 @@ const AboutSection = () => {
 };
 
 // Composant ProjectCard
-const ProjectCard = ({ project }) => {
-  return (
-    <div style={{...styles.projectCard, background: project.gradient}}>
-      <div style={styles.projectContent}>
-        <div style={styles.tagsContainer}>
-          {project.tags.map((tag, i) => (
-            <span key={i} style={styles.tag}>{tag}</span>
-          ))}
-        </div>
-        <div style={styles.projectImageContainer}>
-          <img src={project.image} alt={project.title} style={styles.projectImage} />
-        </div>
-        <div>
-          <h3 style={styles.projectTitle}>{project.title}</h3>
-          <p style={styles.projectDescription}>{project.description}</p>
-          <button style={styles.detailsButton}>Détails →</button>
-        </div>
-      </div>
-    </div>
-  );
-};
+// const ProjectCard = ({ project }) => {
+//   return (
+//     <div style={{...styles.projectCard, background: project.gradient}}>
+//       <div style={styles.projectContent}>
+//         <div style={styles.tagsContainer}>
+//           {project.tags.map((tag, i) => (
+//             <span key={i} style={styles.tag}>{tag}</span>
+//           ))}
+//         </div>
+//         <div style={styles.projectImageContainer}>
+//           <img src={project.image} alt={project.title} style={styles.projectImage} />
+//         </div>
+//         <div>
+//           <h3 style={styles.projectTitle}>{project.title}</h3>
+//           <p style={styles.projectDescription}>{project.description}</p>
+//           <button style={styles.detailsButton}>Détails →</button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
 
 // Composant Projects
 // const ProjectsSection = ({ filter, setFilter }) => {
@@ -166,7 +166,7 @@ const ProjectCard = ({ project }) => {
 // };
 
 // Composant Expertise
-const ExpertiseCard = ({ expertise }) => {
+const ExpertiseCard = ({ expertise }: { expertise: any }) => {
   return (
     <div style={styles.expertiseCard}>
       <div style={styles.expertiseContent}>
@@ -252,7 +252,7 @@ const CertificationsSection = () => {
 };
 
 // Composant Tools
-const ToolsSection = ({ filter, setFilter }) => {
+const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filter: string) => void }) => {
   const tools = [
     "Audit", "UX research", "User persona", "User journey map", "User flow",
     "Wireflow", "Wireframe", "Components", "User interface", "User story"
