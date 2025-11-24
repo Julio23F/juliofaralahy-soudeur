@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, CSSProperties } from "react";
 import { Karantina } from 'next/font/google'
 import { Download, ArrowUpRight } from "lucide-react"
 import ProjectsSection from './ProjectsSection'
@@ -352,14 +352,15 @@ export default function Home() {
 }
 
 // Styles
-const styles = {
+// Styles avec typage correct
+const styles: { [key: string]: CSSProperties } = {
   main: {
     minHeight: '100vh',
   },
   
   // Header
   header: {
-    position: "fixed" as React.CSSProperties["position"],
+    position: "fixed",
     top: 0,
     left: 0,
     right: 0,
@@ -412,7 +413,6 @@ const styles = {
   },
   heroTitles: {
     fontFamily: 'Karantina, sans-serif',
-    // textAlign: 'center',
     color: '#27272a',
   },
   title1: {
@@ -420,16 +420,11 @@ const styles = {
     fontSize: '140px',
     fontWeight: 'bolder',
     margin: 0,
-    // backgroundColor: "red",
     lineHeight: "0.85em"
-
   },
   title2: {
     lineHeight: "0.85em",
-
-
     letterSpacing: '0.5rem',
-    // marginTop: '-5.5rem',
     fontSize: '140px',
     background: 'linear-gradient(135deg, #4169e8 0%, red 100%)',
     WebkitBackgroundClip: 'text',
@@ -437,10 +432,8 @@ const styles = {
     backgroundClip: 'text',
     fontWeight: 'bolder',
     margin: 0,
-    // border: "solid blue 2px"
   },
   heroContent: {
-    // border: "solid blue 2px",
     marginTop: "2em",
     maxWidth: '42rem',
     lineHeight: '0.6em'
@@ -517,11 +510,9 @@ const styles = {
     color: "#27272a",
     fontFamily: 'Karantina, sans-serif',
     fontWeight: 'bolder',
-    // fontWeight: '900',
     textAlign: 'center',
     width: '50%',
     lineHeight: "1em",
-    // backgroundColor: "red",
     margin: 'auto'
   },
   
