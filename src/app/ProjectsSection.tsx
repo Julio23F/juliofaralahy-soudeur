@@ -203,7 +203,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currentIndex, filteredProjects.length]);
+  }, [currentIndex, filteredProjects.length, goToNext]);
 
   if (filteredProjects.length === 0) {
     return (
