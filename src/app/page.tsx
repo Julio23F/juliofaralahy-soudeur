@@ -89,84 +89,10 @@ const AboutSection = () => {
   );
 };
 
-// Composant ProjectCard
-// const ProjectCard = ({ project }) => {
-//   return (
-//     <div style={{...styles.projectCard, background: project.gradient}}>
-//       <div style={styles.projectContent}>
-//         <div style={styles.tagsContainer}>
-//           {project.tags.map((tag, i) => (
-//             <span key={i} style={styles.tag}>{tag}</span>
-//           ))}
-//         </div>
-//         <div style={styles.projectImageContainer}>
-//           <img src={project.image} alt={project.title} style={styles.projectImage} />
-//         </div>
-//         <div>
-//           <h3 style={styles.projectTitle}>{project.title}</h3>
-//           <p style={styles.projectDescription}>{project.description}</p>
-//           <button style={styles.detailsButton}>Détails →</button>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// Composant Projects
-// const ProjectsSection = ({ filter, setFilter }) => {
-//   const projects = [
-//     {
-//       title: "ALAIVO",
-//       description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-//       image: "https://ext.same-assets.com/405950729/1359461707.png",
-//       tags: ["Audit", "User research", "User Journey map", "User persona", "Carte empathie", "User flow", "Wireframe", "Components", "User interface", "Prototype", "Figma"],
-//       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)"
-//     },
-//     {
-//       title: "SMARTSENA",
-//       description: "Application réseau social d'e-commerce à Madagascar.",
-//       image: "https://ext.same-assets.com/405950729/2828925519.jpeg",
-//       tags: ["En phase analyse", "Figma", "Wireframe", "User flow", "Components", "User Interface", "Prototypage"],
-//       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)"
-//     },
-//     {
-//       title: "i-TAKALO",
-//       description: "Application mobile de don et vente des articles, divers vêtements et autres.",
-//       image: "https://ext.same-assets.com/405950729/2961876309.png",
-//       tags: ["En développement", "Figma", "Audit", "User flow", "Wireframe", "Components", "User Interface", "Prototypage"],
-//       gradient: "linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 50%, #ddd6fe 100%)"
-//     }
-//   ];
-
-//   return (
-//     <section style={styles.section}>
-//       <div style={styles.largeSectionContainer}>
-//         <h2 style={styles.sectionTitle}>PROJETS</h2>
-
-//         <div style={styles.filterContainer}>
-//           {["UX/UI Design", "Web", "Mobile"].map((filterOption) => (
-//             <button
-//               key={filterOption}
-//               onClick={() => setFilter(filterOption)}
-//               style={filter === filterOption ? styles.filterButtonActive : styles.filterButton}
-//             >
-//               {filterOption}
-//             </button>
-//           ))}
-//         </div>
-
-//         <div style={styles.projectsGrid}>
-//           {projects.map((project, idx) => (
-//             <ProjectCard key={idx} project={project} />
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
 
 // Composant Expertise
-const ExpertiseCard = ({ expertise }: { expertise: any }) => {
+// const ExpertiseCard = ({ expertise }: { expertise: any }) => {
+  const ExpertiseCard = ({ expertise }: { expertise: { icon: string; title: string; description: string } }) => {
   return (
     <div style={styles.expertiseCard}>
       <div style={styles.expertiseContent}>

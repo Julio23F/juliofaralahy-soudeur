@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import { MoveRight, MoveLeft, Download, ArrowUpRight } from "lucide-react"
 
 interface Project {
@@ -185,15 +185,17 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     setTimeout(() => setIsTransitioning(false), 500);
   };
 
-  const goToNext = () => {
+
+  const goToNext = useCallback(() => {
     const nextIndex = (currentIndex + 1) % filteredProjects.length;
     goToSlide(nextIndex);
-  };
+  }, [currentIndex, filteredProjects.length]);
 
-  const goToPrev = () => {
+  const goToPrev = useCallback(() => {
     const prevIndex = currentIndex === 0 ? filteredProjects.length - 1 : currentIndex - 1;
     goToSlide(prevIndex);
-  };
+  }, [currentIndex, filteredProjects.length]);
+
 
   useEffect(() => {
     if (filteredProjects.length === 0) return;
@@ -203,7 +205,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [currentIndex, filteredProjects.length, goToNext]);
+  }, [goToNext, filteredProjects.length]);
 
   if (filteredProjects.length === 0) {
     return (
