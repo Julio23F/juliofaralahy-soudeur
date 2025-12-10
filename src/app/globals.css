@@ -85,3 +85,25 @@
     letter-spacing: -0.02em;
   }
 }
+  /* Responsive container utility */
+  .container {
+    width: 100%;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  /* Make images scale nicely */
+  .responsive-img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Responsive typographic helpers */
+  .title-impact {
+    font-weight: 800;
+    line-height: 1;
+  }

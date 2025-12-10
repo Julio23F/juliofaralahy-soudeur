@@ -301,13 +301,13 @@ const styles = {
     padding: '60px 20px',
   },
   container: {
-    maxWidth: '1400px',
+    maxWidth: 'min(1400px, 95%)',
     margin: '0 auto',
   },
   sectionTitle: {
     fontFamily: 'Karantina, sans-serif',
     letterSpacing: '0.4rem',
-    fontSize: '120px',
+    fontSize: 'clamp(1.5rem, 8vw, 5rem)',
     color: "#27272a",
     fontWeight: 'bold',
     textAlign: 'center' as const,
@@ -367,7 +367,7 @@ const styles = {
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: 'none',
-    minHeight: '520px',
+    minHeight: 'min(520px, 60vh)',
   },
   statusBadge: {
     position: 'absolute' as const,
@@ -401,7 +401,7 @@ const styles = {
     // border: "solid red 5px"
   },
   cardTitle: {
-    fontSize: '2.5rem',
+    fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
     fontWeight: 'bold',
     color: '#ffffff',
     marginTop: '17px',
@@ -418,7 +418,7 @@ const styles = {
     display: 'flex',
     flexWrap: 'wrap' as const,
     gap: '8px',
-    width: "70%"
+    width: "min(70%, 100%)"
   },
   tag: {
     backgroundColor: '#ccfd16',
@@ -437,7 +437,7 @@ const styles = {
     gap: '0.7rem',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '0.75rem 2rem',
+    padding: '0.6rem 1rem',
     backgroundColor: '#3b82f6',
     border: '1px solid #3b82f6',
 
@@ -462,13 +462,13 @@ const styles = {
     border: '1px solid #d1d5db',
     backgroundColor: 'white',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    padding: '0.75rem 2rem',
+    padding: '0.6rem 1rem',
     cursor: 'pointer',
     transition: 'all 0.3s',
   },
   navButton: {
-    width: '48px',
-    height: '48px',
+    width: 'clamp(36px, 4vw, 48px)',
+    height: 'clamp(36px, 4vw, 48px)',
     borderRadius: '50%',
     border: 'none',
     backgroundColor: '#ffffff',

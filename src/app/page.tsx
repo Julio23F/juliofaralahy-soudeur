@@ -269,8 +269,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection filter={projectFilter} setFilter={setProjectFilter} />
-      <ExpertisesSection />
-      <CertificationsSection />
+      {/* <ExpertisesSection /> */}
+      {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
       <Footer />
     </main>
@@ -282,8 +282,9 @@ export default function Home() {
 const styles: { [key: string]: CSSProperties } = {
   main: {
     minHeight: '100vh',
+    // backgroundColor: "red"
   },
-  
+
   // Header
   header: {
     position: "fixed",
@@ -294,24 +295,24 @@ const styles: { [key: string]: CSSProperties } = {
     padding: '1rem 1.5rem',
   },
   headerContainer: {
-    maxWidth: '80rem',
+    maxWidth: 'min(80rem, 95%)',
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
   logoContainer: {
-    width: '4rem',
-    height: '4rem',
+    width: '3.25rem',
+    height: '3.25rem',
     backgroundColor: '#2b2834',
-    borderRadius: '1.5rem',
+    borderRadius: '1.25rem',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
   },
   logoImage: {
-    width: '3rem',
-    height: '3rem',
+    width: '2.5rem',
+    height: '2.5rem',
   },
   menuButton: {
     width: '3rem',
@@ -323,7 +324,7 @@ const styles: { [key: string]: CSSProperties } = {
     border: 'none',
     cursor: 'pointer',
   },
-  
+
   // Hero Section
   heroSection: {
     minHeight: '100vh',
@@ -333,7 +334,7 @@ const styles: { [key: string]: CSSProperties } = {
     padding: '6rem 0.5rem 4rem',
   },
   heroContainer: {
-    maxWidth: '56rem',
+    maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     width: '100%',
   },
@@ -342,16 +343,16 @@ const styles: { [key: string]: CSSProperties } = {
     color: '#27272a',
   },
   title1: {
-    letterSpacing: '0.5rem',
-    fontSize: '140px',
+    letterSpacing: 'clamp(0.15rem, 2vw, 0.5rem)',
+    fontSize: 'clamp(2.5rem, 12vw, 9rem)',
     fontWeight: 'bolder',
     margin: 0,
-    lineHeight: "0.85em"
+    lineHeight: "0.9em"
   },
   title2: {
-    lineHeight: "0.85em",
-    letterSpacing: '0.5rem',
-    fontSize: '140px',
+    lineHeight: "0.9em",
+    letterSpacing: 'clamp(0.15rem, 2vw, 0.5rem)',
+    fontSize: 'clamp(2.5rem, 12vw, 9rem)',
     background: 'linear-gradient(135deg, #4169e8 0%, red 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -361,16 +362,16 @@ const styles: { [key: string]: CSSProperties } = {
   },
   heroContent: {
     marginTop: "2em",
-    maxWidth: '42rem',
-    lineHeight: '0.6em'
+    maxWidth: 'min(42rem, 95%)',
+    lineHeight: '1.1'
   },
   subtitle: {
-    fontSize: '1.25rem',
+    fontSize: 'clamp(1rem, 2.5vw, 1.5rem)',
     fontWeight: '600',
     marginBottom: '1.25rem',
   },
   description: {
-    fontSize: '1rem',
+    fontSize: 'clamp(0.9rem, 1.6vw, 1rem)',
     color: '#374151',
   },
   heroButtons: {
@@ -391,7 +392,7 @@ const styles: { [key: string]: CSSProperties } = {
     backgroundColor: '#3b82f6',
     color: 'white',
     boxShadow: '0 10px 15px -3px rgba(0, 0, 0, 0.1)',
-    padding: '0.75rem 2rem',
+    padding: '0.65rem 1.25rem',
     border: 'none',
     cursor: 'pointer',
     transition: 'all 0.3s',
@@ -408,7 +409,7 @@ const styles: { [key: string]: CSSProperties } = {
     border: '2px solid #d1d5db',
     backgroundColor: 'white',
     boxShadow: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
-    padding: '0.75rem 2rem',
+    padding: '0.65rem 1.25rem',
     cursor: 'pointer',
     transition: 'all 0.3s',
   },
@@ -418,36 +419,36 @@ const styles: { [key: string]: CSSProperties } = {
     padding: '3rem 1.5rem',
   },
   sectionContainer: {
-    maxWidth: '56rem',
+    maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     textAlign: 'center',
   },
   mediumSectionContainer: {
-    maxWidth: '64rem',
+    maxWidth: 'min(64rem, 95%)',
     margin: '0 auto',
   },
   largeSectionContainer: {
-    maxWidth: '72rem',
+    maxWidth: 'min(72rem, 95%)',
     margin: '0 auto',
   },
   sectionTitle: {
     letterSpacing: '0.4rem',
-    fontSize: '120px',
+    fontSize: 'clamp(1.5rem, 8vw, 6rem)',
     color: "#27272a",
     fontFamily: 'Karantina, sans-serif',
     fontWeight: 'bolder',
     textAlign: 'center',
-    width: '50%',
-    lineHeight: "1em",
+    width: 'min(90%, 800px)',
+    lineHeight: "1.05em",
     margin: 'auto'
   },
   
   // About
   aboutText: {
-    fontSize: '1.125rem',
-    lineHeight: '1.75',
-    width: "75%",
-    margin: "auto"
+    fontSize: 'clamp(1rem, 1.6vw, 1.125rem)',
+    lineHeight: '1.6',
+    width: 'min(75%, 95%)',
+    margin: 'auto'
   },
   
   // Filters
@@ -483,6 +484,7 @@ const styles: { [key: string]: CSSProperties } = {
   projectsGrid: {
     display: 'grid',
     gap: '2rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
   },
   projectCard: {
     position: 'relative',
@@ -514,11 +516,12 @@ const styles: { [key: string]: CSSProperties } = {
     margin: '2rem 0',
   },
   projectImage: {
-    height: '24rem',
-    objectFit: 'contain',
+    width: '100%',
+    maxHeight: 'min(24rem, 45vh)',
+    objectFit: 'cover',
   },
   projectTitle: {
-    fontSize: '2.25rem',
+    fontSize: 'clamp(1.25rem, 2.5vw, 2.25rem)',
     fontWeight: '900',
     marginBottom: '0.5rem',
   },
@@ -539,6 +542,7 @@ const styles: { [key: string]: CSSProperties } = {
   expertisesGrid: {
     display: 'grid',
     gap: '1.5rem',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
   },
   expertiseCard: {
     padding: '2rem',
@@ -579,7 +583,7 @@ const styles: { [key: string]: CSSProperties } = {
   },
   certificationImage: {
     borderRadius: '1.5rem',
-    maxWidth: '42rem',
+    maxWidth: 'min(42rem, 95%)',
     width: '100%',
   },
   paginationDots: {
@@ -632,7 +636,7 @@ const styles: { [key: string]: CSSProperties } = {
     padding: '4rem 1.5rem',
   },
   footerContainer: {
-    maxWidth: '56rem',
+    maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     textAlign: 'center',
   },
