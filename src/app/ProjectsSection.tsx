@@ -14,15 +14,16 @@ interface Project {
 
 interface ProjectCardProps {
   project: Project;
+  style?: React.CSSProperties;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, style }) => {
   return (
     <div style={{
       ...styles.card,
+      ...style,
       backgroundImage: `url(${project.image})`,
       backgroundSize: 'cover',
-    //   backgroundSize: '80%',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
     }}>
@@ -262,7 +263,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   if (filteredProjects.length === 0) {
     return (
-      <section style={styles.section}>
+      <section style={{...styles.section, padding: '60px 200px',}}>
         <div style={styles.container}>
           <h2 style={styles.sectionTitle}>PROJETS</h2>
           
@@ -287,8 +288,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   }
 
   return (
-    <section style={styles.section}>
-      <div style={styles.container}>
+    <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}}>
+      <div style={{...styles.container}}>
         <h2 style={styles.sectionTitle}>PROJETS</h2>
         
         <div style={styles.filterContainer}>
@@ -303,7 +304,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           ))}
         </div>
 
-        <div style={styles.carouselWrapper}>
+        <div style={{...styles.carouselWrapper}}>
           {/* Hide nav buttons on small screens, allow touch scrolling */}
           {!isSmallScreen && filteredProjects.length > 1 && (
             <button onClick={goToPrev} style={styles.navButton}>
@@ -312,7 +313,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
           )}
 
           <div
-            style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' } : styles.carouselContainer}
+            style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', paddingLeft: '2px', paddingRight: '2px', boxSizing: 'border-box'} : styles.carouselContainer}
             ref={carouselRef}
           >
             <div
@@ -321,9 +322,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
               {filteredProjects.map((project, idx) => (
                 <div
                   key={idx}
-                  style={isSmallScreen ? { ...styles.carouselSlide, minWidth: '100%', flex: '0 0 100%', scrollSnapAlign: 'start', scrollSnapStop: 'always' } : styles.carouselSlide}
+                  style={isSmallScreen ? { ...styles.carouselSlide, minWidth: '100%', flex: '0 0 100%', scrollSnapAlign: 'center', scrollSnapStop: 'always', marginLeft: "10px", marginRight: "10px" } : styles.carouselSlide}
                 >
-                  <ProjectCard project={project} />
+                  <ProjectCard
+                    project={project}
+                    style={isSmallScreen ? { width: '100%', minHeight: 'min(600px, 75vh)' } : undefined}
+                  />
                 </div>
               ))}
             </div>
@@ -358,7 +362,7 @@ const styles = {
     padding: '60px 20px',
   },
   container: {
-    maxWidth: 'min(1400px, 95%)',
+    maxWidth: 'min(1400px, 99%)',
     margin: '0 auto',
   },
   sectionTitle: {
