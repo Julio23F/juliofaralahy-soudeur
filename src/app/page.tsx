@@ -100,7 +100,7 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
                 </button>
               ))}
               <a 
-                href="https://wa.me/0320513845" 
+                href="https://wa.me/+2610320513845" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none", width: '100%' }}
@@ -137,7 +137,7 @@ const HeroSection = () => {
 
         <div style={styles.heroButtons}>
           <a 
-            href="https://wa.me/0320513845" 
+            href="https://wa.me/+2610320513845" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}
@@ -356,8 +356,26 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
         </div>
 
         <div style={styles.ctaContainer}>
-          <button style={styles.ctaButton}>Discutons ensemble</button>
+        <a 
+          href="https://wa.me/+2610320513845" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          style={{ textDecoration: "none" }}
+        >
+          <button style={styles.ctaButton}>
+            <span>Discutons ensemble</span>
+            <ArrowUpRight absoluteStrokeWidth size={18}/>
+          </button>
+          
+
+        </a>
+          {/* <button style={styles.ctaButton}>
+            
+            
+          </button> */}
         </div>
+
+        
       </div>
     </section>
   );
@@ -470,7 +488,8 @@ const styles: { [key: string]: CSSProperties } = {
     
   },
   headerContainer: {
-    maxWidth: 'min(80rem, 40%)',
+    maxWidth: 'max(400px, 40%)',
+    // maxWidth: 'min(80rem, 40%)',
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'space-between',
@@ -805,12 +824,17 @@ const styles: { [key: string]: CSSProperties } = {
     borderRadius: '9999px',
     padding: '1.5rem 2rem',
     fontSize: '1rem',
-    backgroundColor: '#c6c737',
+    backgroundColor: '#ccfd16',
     color: 'black',
     fontWeight: '500',
     border: 'none',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+
+    display: "flex",
+    gap: "0.5rem",
+    alignItems: "center",
+    justifyContent: "center"
   },
   
   // Footer
