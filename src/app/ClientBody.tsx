@@ -14,7 +14,7 @@ export default function ClientBody({
   }, []);
 
   return (
-    <div className="antialiased min-h-screen px-4 sm:px-6 lg:px-8">
+    <div className="antialiased min-h-screen px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="container">{children}</div>
     </div>
   );
