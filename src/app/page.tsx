@@ -32,6 +32,18 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
 
   return (
     <header style={styles.header}>
+      <style>{`
+        @keyframes slideDown {
+          from {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      `}</style>
       <div style={{...styles.headerContainer, position: 'relative', flex: 1}}>
         <div style={styles.logoContainer}>
           <img 
@@ -856,7 +868,6 @@ const styles: { [key: string]: CSSProperties } = {
     left: 0,
     right: 0,
     backgroundColor: '#2b2834',
-    // backgroundColor: 'red',
     border: '1px solid #2b2834',
     borderRadius: '0 0 1.5rem 1.5rem',
     boxShadow: '0 4px 6px rgba(253, 10, 10, 0.1)',
@@ -865,7 +876,8 @@ const styles: { [key: string]: CSSProperties } = {
     marginTop: '0.5rem',
     display: 'flex',
     flexDirection: 'column',
-    paddingTop: "20px"
+    paddingTop: "20px",
+    animation: 'slideDown 0.3s ease-out',
   },
   menuItem: {
     display: 'block',
