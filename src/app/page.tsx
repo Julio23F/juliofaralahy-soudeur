@@ -181,33 +181,32 @@ const CertificationsSection = () => {
 const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filter: string) => void }) => {
   const toolsByCategory: { [key: string]: string[] } = {
     "UX/UI Design": [
-      "Figma", "Adobe XD", "Sketch", "Protopie", "User research", "User persona", 
-      "User journey map", "User flow", "Wireframe", "Components", "User interface", "Prototype"
+      "Figma", "Adobe XD", "Rive editor"
     ],
     "Front-end": [
-      "React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", 
-      "React Native", "NativeWind", "Responsive Design", "Web APIs", "DOM"
+      "React", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", 
+      "Responsive Design"
     ],
     "Back-end": [
-      "Node.js", "NestJS", "Python", "Django", "PostgreSQL", "MongoDB", "REST API", 
-      "GraphQL", "Authentication", "Database Design", "Server Architecture", "Deployment"
+      "Python", "Django", "PostgreSQL", "REST API", 
+      "Authentication", "Deployment"
     ],
     "Mobile": [
-      "React Native", "NativeWind", "Android", "iOS", "Expo", "Firebase", "SQLite", 
+      "React Native", "Android", "iOS", "Expo", 
       "Mobile UI/UX", "App Distribution", "Push Notifications", "Offline Storage", "Performance"
     ],
-    "Desktop": [
-      "Electron", "Qt", "C#", ".NET", "Windows API", "macOS Development", "Linux", 
-      "Cross-platform", "Desktop UI", "System Integration", "File Management", "Performance"
-    ],
+    // "Desktop": [
+    //   "Electron", "Qt", "C#", ".NET", "Windows API", "macOS Development", "Linux", 
+    //   "Cross-platform", "Desktop UI", "System Integration", "File Management", "Performance"
+    // ],
     "Base de donnée": [
-      "PostgreSQL", "MongoDB", "Firebase", "SQLite", "MySQL", "Redis", "Database Design",
-      "Data Modeling", "Optimization", "Backup & Recovery", "Scaling", "Query Performance"
+      "PostgreSQL", "Firebase", "SQLite", "MySQL", "Redis",
+      "Data Modeling", "Optimization"
     ],
-    "Graphisme": [
-      "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe After Effects", "UI Design", 
-      "Branding", "Logo Design", "Typography", "Color Theory", "Motion Design", "Icon Design"
-    ]
+    // "Graphisme": [
+    //   "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe After Effects", "UI Design", 
+    //   "Branding", "Logo Design", "Typography", "Color Theory", "Motion Design", "Icon Design"
+    // ]
   };
 
   const tools = toolsByCategory[filter] || toolsByCategory["UX/UI Design"];
@@ -218,7 +217,7 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
         <h2 style={styles.sectionTitle}>LANGAGES & OUTILS</h2>
 
         <div style={styles.filterContainer}>
-          {["UX/UI Design", "Front-end", "Back-end", "Mobile", "Desktop", "Base de donnée", "Graphisme"].map((filterOption) => (
+          {["Front-end", "Back-end", "Mobile", "Base de donnée", "UX/UI Design"].map((filterOption) => (
             <button
               key={filterOption}
               onClick={() => setFilter(filterOption)}
@@ -274,8 +273,8 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      <div style={{...styles.footerContainer, backgroundColor: "blue"}}>
-        <div style={{backgroundColor: "red"}}>
+      <div style={{...styles.footerContainer}}>
+        <div >
           <div style={styles.footerLogoContainer}>
             <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
           </div>
@@ -286,7 +285,7 @@ const Footer = () => {
           </div>
         </div>
 
-        <div style={{...styles.socialContainer, backgroundColor: "red"}}>
+        <div style={{...styles.socialContainer}}>
           {socialLinks.map((s, idx) => {
             const Svg = s.Svg;
             return (
@@ -297,7 +296,7 @@ const Footer = () => {
           })}
         </div>
 
-        <div style={{...styles.footerBottom, backgroundColor: "red"}}>
+        <div style={{...styles.footerBottom}}>
           <p style={styles.footerText}>© 2025 - Tous droits réservés.</p>
           {/* <div style={styles.footerLinks}>
             <a href="#" style={styles.footerLink}>Mentions légales</a>
@@ -694,10 +693,11 @@ const styles: { [key: string]: CSSProperties } = {
     marginBottom: "24px"
   },
   footerContainer: {
-    maxWidth: 'min(56rem, 95%)',
+    width: '100%',
+    // maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     textAlign: 'center',
-    display: "flex",
+    display: 'flex', // Responsive
     justifyContent: "space-around",
     alignItems: "center"
   },
@@ -727,6 +727,8 @@ const styles: { [key: string]: CSSProperties } = {
     justifyContent: 'center',
     gap: '1.5rem',
     marginBottom: '2rem',
+    // width: '100%',
+    minWidth: '50%',
   },
   socialLink: {
     width: '48px',
@@ -745,6 +747,9 @@ const styles: { [key: string]: CSSProperties } = {
   footerBottom: {
     fontSize: '0.875rem',
     color: '#9ca3af',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "flex-start"
   },
   footerText: {
     marginBottom: '0.5rem',
