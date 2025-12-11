@@ -96,9 +96,11 @@ const AboutSection = () => {
   return (
     <div style={styles.expertiseCard}>
       <div style={styles.expertiseContent}>
-        <div style={styles.expertiseIconContainer}>
-          <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} />
-        </div>
+        {expertise.icon ? (
+          <div style={styles.expertiseIconContainer}>
+            <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} />
+          </div>
+        ) : null}
         <div>
           <h3 style={styles.expertiseTitle}>{expertise.title}</h3>
           <p style={styles.expertiseDescription}>{expertise.description}</p>
@@ -107,6 +109,42 @@ const AboutSection = () => {
     </div>
   );
 };
+
+// Composant Distinctions
+const DistinctionsSection = () => {
+  const distinctions = [
+    {
+      icon: "/images/trophy.svg",
+      title: "2ème place — FNE PITCH Contest 2025",
+      description: "Concours de projet organisé par la Maison de l'Entrepreneuriat et du Développement lors du forum national des entrepreneurs"
+    },
+    {
+      icon: "/images/trophy.svg",
+      title: "2ème place — Hackathon IFM 2025",
+      description: "Hackathon organisé par l'institut français de Madagascar"
+    },
+    
+    // {
+    //   icon: "/images/trophy.svg",
+    //   title: "2ème place — Hackathon",
+    //   description: "2em place hackation"
+    // }
+  ];
+
+  return (
+    <section style={styles.section}>
+      <div style={styles.mediumSectionContainer}>
+        <h2 style={styles.sectionTitle}>PRIX & DISTINCTIONS</h2>
+        <div style={styles.expertisesGrid}>
+          {distinctions.map((distinction, idx) => (
+            <ExpertiseCard key={idx} expertise={distinction} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
 
 // Composant Expertises
 const ExpertisesSection = () => {
@@ -320,7 +358,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection filter={projectFilter} setFilter={setProjectFilter} />
-      <ExpertisesSection />
+      {/* <ExpertisesSection /> */}
+      <DistinctionsSection />
       {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
       {/* <Footer /> */}
