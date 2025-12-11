@@ -320,10 +320,10 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection filter={projectFilter} setFilter={setProjectFilter} />
-      {/* <ExpertisesSection /> */}
+      <ExpertisesSection />
       {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
-      <Footer />
+      {/* <Footer /> */}
     </main>
   );
 }
@@ -595,9 +595,10 @@ const styles: { [key: string]: CSSProperties } = {
   
   // Expertises
   expertisesGrid: {
-    display: 'grid',
+    display: 'flex',
+    flexDirection: 'column',
     gap: '1.5rem',
-    gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+    width: '100%',
   },
   expertiseCard: {
     padding: '2rem',
@@ -606,6 +607,7 @@ const styles: { [key: string]: CSSProperties } = {
     backgroundColor: 'white',
     border: '1px solid #e5e7eb',
     transition: 'box-shadow 0.3s',
+    width: '100%',
   },
   expertiseContent: {
     display: 'flex',
