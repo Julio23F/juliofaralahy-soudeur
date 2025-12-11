@@ -11,25 +11,66 @@ const karantina = Karantina({
 })
 
 // Composant Header
-const Header = () => {
+const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (open: boolean) => void }) => {
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  
+  const menuItems = [
+    { label: "À propos", id: "about" },
+    { label: "Projets", id: "projects" },
+    { label: "Prix & Distinctions", id: "distinctions" },
+    { label: "Langages & Outils", id: "tools" },
+    { label: "Contact", id: "footer" }
+  ];
+
+  const handleMenuClick = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setMenuOpen(false);
+    }
+  };
+
   return (
     <header style={styles.header}>
-      <div style={styles.headerContainer}>
+      <div style={{...styles.headerContainer, position: 'relative', flex: 1}}>
         <div style={styles.logoContainer}>
           <img 
             src="/images/logo.png" 
             alt="Logo" 
             style={styles.rotate }
           />
-
         </div>
-        <button style={styles.menuButton}>
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect width="24" height="2" fill="currentColor" />
-            <rect y="11" width="24" height="2" fill="currentColor" />
-            <rect y="22" width="24" height="2" fill="currentColor" />
-          </svg>
-        </button>
+        <div style={{  }}>
+          <button 
+            style={styles.menuButton}
+            onClick={() => setMenuOpen(!menuOpen)}
+            aria-label="Toggle menu"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+              <rect width="24" height="2" fill="#fff" />
+              <rect y="11" width="24" height="2" fill="#fff" />
+              {/* <rect y="22" width="24" height="2" fill="#fff" /> */}
+            </svg>
+          </button>
+          {menuOpen && (
+            <nav style={styles.dropdownMenu}>
+              {menuItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => handleMenuClick(item.id)}
+                  onMouseEnter={() => setHoveredItem(item.id)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                  style={{
+                    ...styles.menuItem,
+                    ...(hoveredItem === item.id ? styles.menuItemHover : {})
+                  }}
+                >
+                  {item.label}
+                </button>
+              ))}
+            </nav>
+          )}
+        </div>
       </div>
     </header>
   );
@@ -78,7 +119,7 @@ const HeroSection = () => {
 // Composant About
 const AboutSection = () => {
   return (
-    <section style={{...styles.section}}>
+    <section style={{...styles.section}} id="about">
       <div style={styles.sectionContainer}>
         <h2 style={styles.sectionTitle} className={`${karantina.className}`}>MES PROPOS</h2>
         <p style={styles.aboutText}>
@@ -123,16 +164,10 @@ const DistinctionsSection = () => {
       title: "2ème place — Hackathon IFM 2025",
       description: "Hackathon organisé par l'institut français de Madagascar"
     },
-    
-    // {
-    //   icon: "/images/trophy.svg",
-    //   title: "2ème place — Hackathon",
-    //   description: "2em place hackation"
-    // }
   ];
 
   return (
-    <section style={styles.section}>
+    <section style={styles.section} id="distinctions">
       <div style={styles.mediumSectionContainer}>
         <h2 style={styles.sectionTitle}>PRIX & DISTINCTIONS</h2>
         <div style={styles.expertisesGrid}>
@@ -250,10 +285,9 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
   const tools = toolsByCategory[filter] || toolsByCategory["UX/UI Design"];
 
   return (
-    <section style={styles.section}>
+    <section style={styles.section} id="tools">
       <div style={styles.mediumSectionContainer}>
         <h2 style={styles.sectionTitle}>LANGAGES & OUTILS</h2>
-
         <div style={styles.filterContainer}>
           {["Front-end", "Back-end", "Mobile", "Base de donnée", "UX/UI Design"].map((filterOption) => (
             <button
@@ -310,7 +344,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer style={styles.footer}>
+    <footer style={styles.footer} id="footer">
       <div style={{...styles.footerContainer}}>
         <div >
           <div style={styles.footerLogoContainer}>
@@ -351,10 +385,11 @@ const Footer = () => {
 export default function Home() {
   const [projectFilter, setProjectFilter] = useState("UX/UI Design");
   const [toolFilter, setToolFilter] = useState("UX/UI Design");
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <main style={styles.main}>
-      <Header />
+      <Header menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
       <HeroSection />
       <AboutSection />
       <ProjectsSection filter={projectFilter} setFilter={setProjectFilter} />
@@ -383,18 +418,22 @@ const styles: { [key: string]: CSSProperties } = {
     right: 0,
     zIndex: 50,
     padding: '1rem 1.5rem',
+    
   },
   headerContainer: {
-    maxWidth: 'min(80rem, 95%)',
+    maxWidth: 'min(80rem, 40%)',
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-  },
+    backgroundColor: "#2b2834",
+    padding: "0.7em 1em",
+    borderRadius: '1.5em',
+  },  
   logoContainer: {
     width: '3.25rem',
     height: '3.25rem',
-    backgroundColor: '#2b2834',
+    // backgroundColor: '#2b2834',
     borderRadius: '1.25rem',
     display: 'flex',
     alignItems: 'center',
@@ -808,5 +847,41 @@ const styles: { [key: string]: CSSProperties } = {
   },
   footerDesigner: {
     fontWeight: '600',
+  },
+  
+  // Menu Dropdown
+  dropdownMenu: {
+    position: 'absolute',
+    top: '60%',
+    left: 0,
+    right: 0,
+    backgroundColor: '#2b2834',
+    // backgroundColor: 'red',
+    border: '1px solid #2b2834',
+    borderRadius: '0 0 1.5rem 1.5rem',
+    boxShadow: '0 4px 6px rgba(253, 10, 10, 0.1)',
+    zIndex: "-100",
+    overflow: 'hidden',
+    marginTop: '0.5rem',
+    display: 'flex',
+    flexDirection: 'column',
+    paddingTop: "20px"
+  },
+  menuItem: {
+    display: 'block',
+    width: '100%',
+    padding: '1rem 1.5rem',
+    backgroundColor: 'transparent',
+    border: 'none',
+    textAlign: 'left',
+    fontSize: '1rem',
+    fontWeight: '500',
+    cursor: 'pointer',
+    transition: 'background-color 0.2s',
+    color: 'white',
+  },
+  menuItemHover: {
+    // backgroundColor: '#1a1620',
+    color: '#ccfd16',
   },
 };

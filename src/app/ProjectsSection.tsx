@@ -288,7 +288,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   }
 
   return (
-    <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}}>
+    <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}} id="projects">
       <div style={{...styles.container}}>
         <h2 style={styles.sectionTitle}>PROJETS</h2>
         
@@ -366,12 +366,15 @@ const styles = {
     margin: '0 auto',
   },
   sectionTitle: {
-    fontFamily: 'Karantina, sans-serif',
     letterSpacing: '0.4rem',
-    fontSize: 'clamp(5rem, 8vw, 5rem)',
+    fontSize: 'clamp(4rem, 8vw, 6rem)',
     color: "#27272a",
-    fontWeight: 'bold',
-    textAlign: 'center' as const,
+    fontFamily: 'Karantina, sans-serif',
+    fontWeight: 'bolder',
+    textAlign: 'center',
+    width: 'min(90%, 800px)',
+    lineHeight: "1.05em",
+    margin: 'auto'
   },
   filterContainer: {
     display: 'flex',
