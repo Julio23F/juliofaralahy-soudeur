@@ -261,8 +261,8 @@ const Footer = () => {
         </div>
 
         <div style={styles.footerInfo}>
-          <h3 style={styles.footerName}>MARIO RALISON</h3>
-          <p style={styles.footerEmail}>marioeuphraim@gmail.com</p>
+          <h3 style={styles.footerName}>FARALAHY Julio</h3>
+          <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
         </div>
 
         <div style={styles.socialContainer}>
@@ -275,10 +275,10 @@ const Footer = () => {
 
         <div style={styles.footerBottom}>
           <p style={styles.footerText}>© 2025 - Tous droits réservés.</p>
-          <div style={styles.footerLinks}>
+          {/* <div style={styles.footerLinks}>
             <a href="#" style={styles.footerLink}>Mentions légales</a>
             <a href="#" style={styles.footerLink}>Politique de confidentialité</a>
-          </div>
+          </div> */}
           <p style={styles.footerDesigner}>DESIGNED BY ME</p>
         </div>
       </div>
