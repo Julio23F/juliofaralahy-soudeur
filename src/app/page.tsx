@@ -78,7 +78,7 @@ const HeroSection = () => {
 // Composant About
 const AboutSection = () => {
   return (
-    <section style={styles.section}>
+    <section style={{...styles.section}}>
       <div style={styles.sectionContainer}>
         <h2 style={styles.sectionTitle} className={`${karantina.className}`}>MES PROPOS</h2>
         <p style={styles.aboutText}>
@@ -355,16 +355,17 @@ const styles: { [key: string]: CSSProperties } = {
 
   // Hero Section
   heroSection: {
-    minHeight: '100vh',
+    minHeight: 'clamp(50vh, 70vh, 70vh)',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: '6rem 0.5rem 4rem',
+    padding: 'clamp(1rem, 3vw, 3rem) 0.5rem clamp(0.5rem, 2vw, 1.5rem)',
   },
   heroContainer: {
     maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     width: '100%',
+    paddingTop: 'clamp(2rem, 4vw, 4rem)',
   },
   heroTitles: {
     fontFamily: 'Karantina, sans-serif',
@@ -372,7 +373,7 @@ const styles: { [key: string]: CSSProperties } = {
   },
   title1: {
     letterSpacing: 'clamp(0.15rem, 2vw, 0.5rem)',
-    fontSize: 'clamp(2.5rem, 12vw, 9rem)',
+    fontSize: 'clamp(4rem, 12vw, 9rem)',
     fontWeight: 'bolder',
     margin: 0,
     lineHeight: "0.9em"
@@ -380,7 +381,7 @@ const styles: { [key: string]: CSSProperties } = {
   title2: {
     lineHeight: "0.9em",
     letterSpacing: 'clamp(0.15rem, 2vw, 0.5rem)',
-    fontSize: 'clamp(2.5rem, 12vw, 9rem)',
+    fontSize: 'clamp(4rem, 12vw, 9rem)',
     background: 'linear-gradient(135deg, #4169e8 0%, red 100%)',
     WebkitBackgroundClip: 'text',
     WebkitTextFillColor: 'transparent',
@@ -461,7 +462,7 @@ const styles: { [key: string]: CSSProperties } = {
   },
   sectionTitle: {
     letterSpacing: '0.4rem',
-    fontSize: 'clamp(1.5rem, 8vw, 6rem)',
+    fontSize: 'clamp(4rem, 8vw, 6rem)',
     color: "#27272a",
     fontFamily: 'Karantina, sans-serif',
     fontWeight: 'bolder',

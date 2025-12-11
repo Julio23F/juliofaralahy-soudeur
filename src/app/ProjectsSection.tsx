@@ -368,7 +368,7 @@ const styles = {
   sectionTitle: {
     fontFamily: 'Karantina, sans-serif',
     letterSpacing: '0.4rem',
-    fontSize: 'clamp(1.5rem, 8vw, 5rem)',
+    fontSize: 'clamp(5rem, 8vw, 5rem)',
     color: "#27272a",
     fontWeight: 'bold',
     textAlign: 'center' as const,
