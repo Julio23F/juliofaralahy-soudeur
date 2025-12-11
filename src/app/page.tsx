@@ -274,17 +274,19 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer}>
-      <div style={styles.footerContainer}>
-        <div style={styles.footerLogoContainer}>
-          <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
+      <div style={{...styles.footerContainer, backgroundColor: "blue"}}>
+        <div style={{backgroundColor: "red"}}>
+          <div style={styles.footerLogoContainer}>
+            <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
+          </div>
+
+          <div style={styles.footerInfo}>
+            <h3 style={styles.footerName}>FARALAHY Julio</h3>
+            <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
+          </div>
         </div>
 
-        <div style={styles.footerInfo}>
-          <h3 style={styles.footerName}>FARALAHY Julio</h3>
-          <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
-        </div>
-
-        <div style={styles.socialContainer}>
+        <div style={{...styles.socialContainer, backgroundColor: "red"}}>
           {socialLinks.map((s, idx) => {
             const Svg = s.Svg;
             return (
@@ -295,7 +297,7 @@ const Footer = () => {
           })}
         </div>
 
-        <div style={styles.footerBottom}>
+        <div style={{...styles.footerBottom, backgroundColor: "red"}}>
           <p style={styles.footerText}>© 2025 - Tous droits réservés.</p>
           {/* <div style={styles.footerLinks}>
             <a href="#" style={styles.footerLink}>Mentions légales</a>
@@ -685,19 +687,24 @@ const styles: { [key: string]: CSSProperties } = {
   
   // Footer
   footer: {
-    backgroundColor: '#2b2834',
+    backgroundColor: '#27272a',
     color: 'white',
-    padding: '4rem 1.5rem',
+    padding: '2rem 0 1rem',
+    borderRadius: "24px",
+    marginBottom: "24px"
   },
   footerContainer: {
     maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     textAlign: 'center',
+    display: "flex",
+    justifyContent: "space-around",
+    alignItems: "center"
   },
   footerLogoContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginBottom: '2rem',
+    // marginBottom: '2rem',
   },
   footerLogo: {
     width: '4rem',
@@ -705,11 +712,12 @@ const styles: { [key: string]: CSSProperties } = {
   },
   footerInfo: {
     marginBottom: '2rem',
+    marginTop: "-5px",
   },
   footerName: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
-    marginBottom: '0.5rem',
+    // marginBottom: '0.5rem',
   },
   footerEmail: {
     color: '#9ca3af',
