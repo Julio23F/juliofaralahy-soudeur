@@ -43,6 +43,16 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
             transform: translateY(0);
           }
         }
+        @keyframes slideUp {
+          from {
+            opacity: 1;
+            transform: translateY(0);
+          }
+          to {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+        }
       `}</style>
       <div style={{...styles.headerContainer, position: 'relative', flex: 1}}>
         <div style={styles.logoContainer}>
@@ -58,14 +68,23 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-              <rect width="24" height="2" fill="#fff" />
-              <rect y="11" width="24" height="2" fill="#fff" />
-              {/* <rect y="22" width="24" height="2" fill="#fff" /> */}
-            </svg>
+            {menuOpen ? (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                <path d="M18 6L6 18M6 6l12 12" stroke="#fff" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            ) : (
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                {/* <rect width="24" height="2" fill="#fff" />
+                <rect y="11" width="24" height="2" fill="#fff" />
+                <rect y="22" width="24" height="2" fill="#fff" /> */}
+
+                <rect width="20" height="2" fill="#fff" y="7" />
+                <rect width="20" height="2" fill="#fff" y="15" />
+              </svg>
+            )}
           </button>
           {menuOpen && (
-            <nav style={styles.dropdownMenu}>
+            <nav style={{...styles.dropdownMenu, animation: menuOpen ? 'slideDown 0.3s ease-out' : 'slideUp 0.3s ease-out'}}>
               {menuItems.map((item) => (
                 <button
                   key={item.id}
@@ -80,6 +99,17 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
                   {item.label}
                 </button>
               ))}
+              <a 
+                href="https://wa.me/0320513845" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                style={{ textDecoration: "none", width: '100%' }}
+              >
+                <button style={{...styles.primaryButton, backgroundColor: '#ccfd16', color: "#000", padding: '1rem 1.25rem', marginTop: "20px", width: '100%'}}>
+                  <span>Contactez-moi</span>
+                  <ArrowUpRight absoluteStrokeWidth size={18}/>
+                </button>
+              </a>
             </nav>
           )}
         </div>
@@ -106,10 +136,17 @@ const HeroSection = () => {
         </div>
 
         <div style={styles.heroButtons}>
-          <button style={styles.primaryButton}>
-            <span>Contactez-moi</span>
-            <ArrowUpRight absoluteStrokeWidth size={18}/>
-          </button>
+          <a 
+            href="https://wa.me/0320513845" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none" }}
+          >
+            <button style={styles.primaryButton}>
+              <span>Contactez-moi</span>
+              <ArrowUpRight absoluteStrokeWidth size={18}/>
+            </button>
+          </a>
           <a 
             href="https://drive.google.com/file/d/1J73ZJI0LbSo1GHoKm_fcXTIa-5UBCMma/view?usp=sharing" 
             target="_blank" 
@@ -440,7 +477,7 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: 'center',
     backgroundColor: "#2b2834",
     padding: "0.7em 1em",
-    borderRadius: '1.5em',
+    borderRadius: '3em',
   },  
   logoContainer: {
     width: '3.25rem',
@@ -475,7 +512,7 @@ const styles: { [key: string]: CSSProperties } = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 'clamp(1rem, 3vw, 3rem) 0.5rem clamp(0.5rem, 2vw, 1.5rem)',
+    padding: 'clamp(1rem, 6em, 6em) 0.5rem clamp(0.5rem, 2vw, 1.5rem)',
   },
   heroContainer: {
     maxWidth: 'min(56rem, 95%)',
@@ -864,7 +901,7 @@ const styles: { [key: string]: CSSProperties } = {
   // Menu Dropdown
   dropdownMenu: {
     position: 'absolute',
-    top: '60%',
+    top: '30%',
     left: 0,
     right: 0,
     backgroundColor: '#2b2834',
@@ -873,16 +910,18 @@ const styles: { [key: string]: CSSProperties } = {
     boxShadow: '0 4px 6px rgba(253, 10, 10, 0.1)',
     zIndex: "-100",
     overflow: 'hidden',
-    marginTop: '0.5rem',
+    marginTop: '1rem',
     display: 'flex',
     flexDirection: 'column',
-    paddingTop: "20px",
-    animation: 'slideDown 0.3s ease-out',
+    padding: "30px",
+    paddingTop: "35px",
+    paddingBottom: "25px",
   },
   menuItem: {
+    // backgroundColor: "red",
     display: 'block',
     width: '100%',
-    padding: '1rem 1.5rem',
+    padding: '1rem 0',
     backgroundColor: 'transparent',
     border: 'none',
     textAlign: 'left',
