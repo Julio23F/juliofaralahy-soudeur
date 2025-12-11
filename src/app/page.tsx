@@ -179,10 +179,38 @@ const CertificationsSection = () => {
 
 // Composant Tools
 const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filter: string) => void }) => {
-  const tools = [
-    "Audit", "UX research", "User persona", "User journey map", "User flow",
-    "Wireflow", "Wireframe", "Components", "User interface", "User story"
-  ];
+  const toolsByCategory: { [key: string]: string[] } = {
+    "UX/UI Design": [
+      "Figma", "Adobe XD", "Sketch", "Protopie", "User research", "User persona", 
+      "User journey map", "User flow", "Wireframe", "Components", "User interface", "Prototype"
+    ],
+    "Front-end": [
+      "React", "Next.js", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", 
+      "React Native", "NativeWind", "Responsive Design", "Web APIs", "DOM"
+    ],
+    "Back-end": [
+      "Node.js", "NestJS", "Python", "Django", "PostgreSQL", "MongoDB", "REST API", 
+      "GraphQL", "Authentication", "Database Design", "Server Architecture", "Deployment"
+    ],
+    "Mobile": [
+      "React Native", "NativeWind", "Android", "iOS", "Expo", "Firebase", "SQLite", 
+      "Mobile UI/UX", "App Distribution", "Push Notifications", "Offline Storage", "Performance"
+    ],
+    "Desktop": [
+      "Electron", "Qt", "C#", ".NET", "Windows API", "macOS Development", "Linux", 
+      "Cross-platform", "Desktop UI", "System Integration", "File Management", "Performance"
+    ],
+    "Base de donnée": [
+      "PostgreSQL", "MongoDB", "Firebase", "SQLite", "MySQL", "Redis", "Database Design",
+      "Data Modeling", "Optimization", "Backup & Recovery", "Scaling", "Query Performance"
+    ],
+    "Graphisme": [
+      "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe After Effects", "UI Design", 
+      "Branding", "Logo Design", "Typography", "Color Theory", "Motion Design", "Icon Design"
+    ]
+  };
+
+  const tools = toolsByCategory[filter] || toolsByCategory["UX/UI Design"];
 
   return (
     <section style={styles.section}>

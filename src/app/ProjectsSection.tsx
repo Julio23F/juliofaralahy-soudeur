@@ -80,6 +80,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
 
   const filter = externalFilter !== undefined ? externalFilter : internalFilter;
   const setFilter = externalSetFilter || setInternalFilter;
@@ -180,6 +181,19 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   const goToSlide = (index: number) => {
     if (isTransitioning) return;
+
+    // On small screens, perform a smooth scroll to the slide
+    if (isSmallScreen && carouselRef.current) {
+      const container = carouselRef.current;
+      const slideWidth = container.offsetWidth;
+      setIsTransitioning(true);
+      container.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
+      setCurrentIndex(index);
+      // allow scroll animation to finish
+      setTimeout(() => setIsTransitioning(false), 600);
+      return;
+    }
+
     setIsTransitioning(true);
     setCurrentIndex(index);
     setTimeout(() => setIsTransitioning(false), 500);
@@ -187,14 +201,16 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
 
   const goToNext = useCallback(() => {
+    if (isTransitioning || filteredProjects.length === 0) return;
     const nextIndex = (currentIndex + 1) % filteredProjects.length;
     goToSlide(nextIndex);
-  }, [currentIndex, filteredProjects.length]);
+  }, [currentIndex, filteredProjects.length, isTransitioning]);
 
   const goToPrev = useCallback(() => {
+    if (isTransitioning || filteredProjects.length === 0) return;
     const prevIndex = currentIndex === 0 ? filteredProjects.length - 1 : currentIndex - 1;
     goToSlide(prevIndex);
-  }, [currentIndex, filteredProjects.length]);
+  }, [currentIndex, filteredProjects.length, isTransitioning]);
 
 
   useEffect(() => {
@@ -206,6 +222,43 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
     return () => clearInterval(interval);
   }, [goToNext, filteredProjects.length]);
+
+  // Detect small screens to enable touch/scroll behavior
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 640px)');
+    const handle = (e: MediaQueryListEvent | MediaQueryList) => setIsSmallScreen(e.matches);
+    handle(mq);
+    if (mq.addEventListener) mq.addEventListener('change', handle as any);
+    else mq.addListener(handle as any);
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener('change', handle as any);
+      else mq.removeListener(handle as any);
+    };
+  }, []);
+
+  // When on small screens, update currentIndex based on scroll position
+  useEffect(() => {
+    if (!isSmallScreen || !carouselRef.current) return;
+    const container = carouselRef.current;
+    let rafId: number | null = null;
+
+    const onScroll = () => {
+      if (!container) return;
+      if (rafId !== null) return;
+      rafId = window.requestAnimationFrame(() => {
+        const slideWidth = container.offsetWidth;
+        const idx = Math.round(container.scrollLeft / slideWidth);
+        if (idx !== currentIndex) setCurrentIndex(idx);
+        rafId = null;
+      });
+    };
+
+    container.addEventListener('scroll', onScroll, { passive: true });
+    return () => {
+      container.removeEventListener('scroll', onScroll);
+      if (rafId) window.cancelAnimationFrame(rafId);
+    };
+  }, [isSmallScreen, currentIndex]);
 
   if (filteredProjects.length === 0) {
     return (
@@ -251,32 +304,36 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
 
         <div style={styles.carouselWrapper}>
-            {filteredProjects.length > 1 && (
-                <button onClick={goToPrev} style={styles.navButton}>
-                <MoveLeft absoluteStrokeWidth size={18}/>
-                </button>
-            )}
+          {/* Hide nav buttons on small screens, allow touch scrolling */}
+          {!isSmallScreen && filteredProjects.length > 1 && (
+            <button onClick={goToPrev} style={styles.navButton}>
+              <MoveLeft absoluteStrokeWidth size={18} />
+            </button>
+          )}
 
-            <div style={styles.carouselContainer} ref={carouselRef}>
-                <div 
-                style={{
-                    ...styles.carouselTrack,
-                    transform: `translateX(-${currentIndex * 100}%)`
-                }}
+          <div
+            style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth' } : styles.carouselContainer}
+            ref={carouselRef}
+          >
+            <div
+              style={isSmallScreen ? { ...styles.carouselTrack, transform: undefined, gap: '0', display: 'flex' } : { ...styles.carouselTrack, transform: `translateX(-${currentIndex * 100}%)` }}
+            >
+              {filteredProjects.map((project, idx) => (
+                <div
+                  key={idx}
+                  style={isSmallScreen ? { ...styles.carouselSlide, minWidth: '100%', flex: '0 0 100%', scrollSnapAlign: 'start', scrollSnapStop: 'always' } : styles.carouselSlide}
                 >
-                {filteredProjects.map((project, idx) => (
-                    <div key={idx} style={styles.carouselSlide}>
-                    <ProjectCard project={project} />
-                    </div>
-                ))}
+                  <ProjectCard project={project} />
                 </div>
+              ))}
             </div>
+          </div>
 
-            {filteredProjects.length > 1 && (
-                <button onClick={goToNext} style={styles.navButton}>
-                <MoveRight absoluteStrokeWidth size={18}/>
-                </button>
-            )}
+          {!isSmallScreen && filteredProjects.length > 1 && (
+            <button onClick={goToNext} style={styles.navButton}>
+              <MoveRight absoluteStrokeWidth size={18} />
+            </button>
+          )}
         </div>
 
         {filteredProjects.length > 1 && (
@@ -367,7 +424,7 @@ const styles = {
     borderRadius: '24px',
     overflow: 'hidden',
     boxShadow: 'none',
-    minHeight: 'min(520px, 60vh)',
+    minHeight: 'min(600px, 75vh)',
   },
   statusBadge: {
     position: 'absolute' as const,
@@ -480,7 +537,7 @@ const styles = {
     boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
     transition: 'all 0.3s ease',
     flexShrink: 0,
-  },
+  } as const,
   pagination: {
     display: 'flex',
     justifyContent: 'center',
