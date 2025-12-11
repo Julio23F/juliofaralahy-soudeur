@@ -5,7 +5,6 @@ import { Karantina } from 'next/font/google'
 import { Download, ArrowUpRight } from "lucide-react"
 import ProjectsSection from './ProjectsSection'
 
-
 const karantina = Karantina({
   weight: ['400'],
   subsets: ['latin'],
@@ -18,10 +17,11 @@ const Header = () => {
       <div style={styles.headerContainer}>
         <div style={styles.logoContainer}>
           <img 
-            src="https://ext.same-assets.com/405950729/2097046639.png" 
+            src="/images/logo.png" 
             alt="Logo" 
-            style={styles.logoImage}
+            style={styles.rotate }
           />
+
         </div>
         <button style={styles.menuButton}>
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -243,21 +243,40 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
   );
 };
 
+// Small inline SVG icons (white paths) used inside colored squares
+const GitHubSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
+    <path d="M216,104v8a56.06,56.06,0,0,1-48.44,55.47A39.8,39.8,0,0,1,176,192v40a8,8,0,0,1-8,8H104a8,8,0,0,1-8-8V216H72a40,40,0,0,1-40-40A24,24,0,0,0,8,152a8,8,0,0,1,0-16,40,40,0,0,1,40,40,24,24,0,0,0,24,24H96v-8a39.8,39.8,0,0,1,8.44-24.53A56.06,56.06,0,0,1,56,112v-8a58.14,58.14,0,0,1,7.69-28.32A59.78,59.78,0,0,1,69.07,28,8,8,0,0,1,76,24a59.75,59.75,0,0,1,48,24h24a59.75,59.75,0,0,1,48-24,8,8,0,0,1,6.93,4,59.74,59.74,0,0,1,5.37,47.68A58,58,0,0,1,216,104Z"/>
+  </svg>
+  
+);
+
+const LinkedInSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
+    <path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z"/>
+  </svg>
+);
+
+const FacebookSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
+  {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
+    <path d="M232,128a104.16,104.16,0,0,1-91.55,103.26,4,4,0,0,1-4.45-4V152h24a8,8,0,0,0,8-8.53,8.17,8.17,0,0,0-8.25-7.47H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,8-8.53A8.17,8.17,0,0,0,167.73,80H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0-8,8.53A8.17,8.17,0,0,0,96.27,152H120v75.28a4,4,0,0,1-4.44,4A104.15,104.15,0,0,1,24.07,124.09c2-54,45.74-97.9,99.78-100A104.12,104.12,0,0,1,232,128Z"/>
+  </svg>
+);
+
 // Composant Footer
 const Footer = () => {
-  const socialIcons = [
-    "https://ext.same-assets.com/405950729/3405966200.svg",
-    "https://ext.same-assets.com/405950729/1597490893.svg",
-    "https://ext.same-assets.com/405950729/3570589054.svg",
-    "https://ext.same-assets.com/405950729/2683347401.svg",
-    "https://ext.same-assets.com/405950729/3599690651.svg"
+  const socialLinks = [
+    { Svg: GitHubSVG, href: 'https://github.com/Julio23F' },
+    { Svg: LinkedInSVG, href: 'https://www.linkedin.com/in/julio-faralahy/' },
+    { Svg: FacebookSVG, href: 'https://www.facebook.com/julio.faralahy.5' },
   ];
 
   return (
     <footer style={styles.footer}>
       <div style={styles.footerContainer}>
         <div style={styles.footerLogoContainer}>
-          <img src="https://ext.same-assets.com/405950729/2097046639.png" alt="Logo" style={styles.footerLogo} />
+          <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
         </div>
 
         <div style={styles.footerInfo}>
@@ -266,11 +285,14 @@ const Footer = () => {
         </div>
 
         <div style={styles.socialContainer}>
-          {socialIcons.map((icon, idx) => (
-            <a key={idx} href="#" style={styles.socialLink}>
-              <img src={icon} alt="Social" style={styles.socialIcon} />
-            </a>
-          ))}
+          {socialLinks.map((s, idx) => {
+            const Svg = s.Svg;
+            return (
+              <a key={idx} href={s.href} style={styles.socialLink} target="_blank" rel="noopener noreferrer" aria-label={`social-${idx}`}>
+                <Svg />
+              </a>
+            );
+          })}
         </div>
 
         <div style={styles.footerBottom}>
@@ -351,6 +373,9 @@ const styles: { [key: string]: CSSProperties } = {
     background: 'none',
     border: 'none',
     cursor: 'pointer',
+  },
+  rotate: {
+    transform: "rotate(15deg)"
   },
 
   // Hero Section
@@ -696,10 +721,10 @@ const styles: { [key: string]: CSSProperties } = {
     marginBottom: '2rem',
   },
   socialLink: {
-    width: '3rem',
-    height: '3rem',
-    backgroundColor: 'white',
-    borderRadius: '0.5rem',
+    width: '48px',
+    height: '48px',
+    // backgroundColor: 'hsl(var(--primary))',
+    borderRadius: '8px',
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
