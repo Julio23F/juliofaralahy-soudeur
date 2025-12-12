@@ -573,7 +573,10 @@ const Footer = () => {
 
           <div style={styles.footerInfo}>
             <h3 style={styles.footerName} className={jakarta.className}>FARALAHY Julio</h3>
-            <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
+            <div style={{marginTop: '0.5em'}}>
+              <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
+              <p style={styles.footerPhone}>+261 32 05 138 45</p>
+            </div>
           </div>
         </div>
 
@@ -1012,7 +1015,7 @@ const styles: { [key: string]: CSSProperties } = {
   footer: {
     backgroundColor: '#27272a',
     color: 'white',
-    padding: '2rem 0 1rem',
+    padding: '1rem 0',
     borderRadius: "24px",
     marginBottom: "24px"
   },
@@ -1046,6 +1049,9 @@ const styles: { [key: string]: CSSProperties } = {
     // marginBottom: '0.5rem',
   },
   footerEmail: {
+    color: '#9ca3af',
+  },
+  footerPhone: {
     color: '#9ca3af',
   },
   socialContainer: {
