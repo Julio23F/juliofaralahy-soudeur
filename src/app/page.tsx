@@ -1,12 +1,17 @@
 "use client";
 
 import { useState, CSSProperties } from "react";
-import { Karantina } from 'next/font/google'
+import { Karantina, Plus_Jakarta_Sans } from 'next/font/google'
 import { Download, ArrowUpRight } from "lucide-react"
 import ProjectsSection from './ProjectsSection'
 
 const karantina = Karantina({
   weight: ['400'],
+  subsets: ['latin'],
+})
+
+const jakarta = Plus_Jakarta_Sans({
+  weight: ['400', '500', '600', '700'], // exemple de poids
   subsets: ['latin'],
 })
 
@@ -210,7 +215,7 @@ const DistinctionsSection = () => {
     },
     {
       icon: "/images/trophy.svg",
-      title: "2ème place — Hackathon IFM 2025",
+      title: "3ème place — Hackathon IFM 2025",
       description: "Hackathon organisé par l'institut français de Madagascar"
     },
   ];
@@ -323,6 +328,7 @@ function AnimatedCTA() {
             background: '#c6c737',
             transition: 'height 350ms cubic-bezier(.2,.8,.2,1)',
             zIndex: 0,
+            
           }}
         />
 
@@ -448,7 +454,7 @@ const Footer = () => {
           </div>
 
           <div style={styles.footerInfo}>
-            <h3 style={styles.footerName}>FARALAHY Julio</h3>
+            <h3 style={styles.footerName} className={jakarta.className}>FARALAHY Julio</h3>
             <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
           </div>
         </div>
@@ -878,7 +884,8 @@ const styles: { [key: string]: CSSProperties } = {
     // maxWidth: 'min(56rem, 95%)',
     margin: '0 auto',
     textAlign: 'center',
-    display: 'flex', // Responsive
+    display: 'flex',
+    flexDirection: 'row',
     justifyContent: "space-around",
     alignItems: "center"
   },
@@ -898,6 +905,7 @@ const styles: { [key: string]: CSSProperties } = {
   footerName: {
     fontSize: '1.5rem',
     fontWeight: 'bold',
+    // fontFamily: 'jakarta',
     // marginBottom: '0.5rem',
   },
   footerEmail: {
