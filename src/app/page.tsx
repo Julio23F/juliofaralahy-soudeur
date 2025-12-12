@@ -534,11 +534,19 @@ const FacebookSVG = () => (
   </svg>
 );
 
+const MailSVG = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
+  {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
+    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,144H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/>
+  </svg>
+);
+
 // Composant Footer
 const Footer = () => {
   const socialLinks = [
     { Svg: GitHubSVG, href: 'https://github.com/Julio23F' },
     { Svg: LinkedInSVG, href: 'https://www.linkedin.com/in/julio-faralahy/' },
+    { Svg: MailSVG, href: 'mailto:juliofaralahy23@gmail.com' },
     { Svg: FacebookSVG, href: 'https://www.facebook.com/julio.faralahy.5' },
   ];
 
