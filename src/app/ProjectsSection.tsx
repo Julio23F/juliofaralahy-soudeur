@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from 'react';
-import { MoveRight, MoveLeft, Download, ArrowUpRight } from "lucide-react"
+import { MoveRight, MoveLeft, Download, Github, ArrowUpRight, X } from "lucide-react"
 
 interface Project {
   title: string;
@@ -10,14 +10,17 @@ interface Project {
   type: string;
   status: string;
   apk: string;
+  github?: string;
+  isShowing?: "apk" | "github" | "none";
 }
 
 interface ProjectCardProps {
   project: Project;
   style?: React.CSSProperties;
+  onOpenModal: () => void;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, style }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }) => {
   return (
     <div style={{
       ...styles.card,
@@ -44,24 +47,74 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, style }) => {
             <h3 style={styles.cardTitle}>{project.title}</h3>
             <p style={styles.cardDescription}>{project.description}</p>
             <div style={styles.cardButtonActions}>
-                <button 
-                    style={{
+              {
+                project.isShowing === "github" && project.github ? (
+                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+                    <button
+                      style={{
                         ...styles.secondaryButton,
-                        opacity: project.apk === "" ? 0.5 : 1,
-                        cursor: project.apk === "" ? "not-allowed" : "pointer"
+                        opacity: project.github ? 1 : 0.5,
+                        cursor: project.github ? "pointer" : "not-allowed"
                       }}
-                    disabled={project.apk === ""}
-                    
-                    onClick={() => window.open(`${project.apk}`, "_blank")}
-                >
+                      disabled={!project.github}
+                      // onClick={onOpenModal}
+                    >
+                      <span>Github</span>
+                      <Github absoluteStrokeWidth size={18} />
+                    </button>
+                  </a>
+
+                ) : project.isShowing === "apk" && project.apk ? (
+                  <button
+                    style={{
+                      ...styles.secondaryButton,
+                      opacity: project.apk ? 1 : 0.5,
+                      cursor: project.apk ? "pointer" : "not-allowed"
+                    }}
+                    disabled={!project.apk}
+                    onClick={onOpenModal}
+                  >
                     <span>Télécharger</span>
                     <Download absoluteStrokeWidth size={18} />
-                </button>
-                <button style={styles.detailsButton}>
-                    <span>Détails</span>
-                    <ArrowUpRight absoluteStrokeWidth size={18}/>
-                </button>
+                  </button>
+                ) : null
+              }
+
+              
+              <button style={styles.detailsButton} onClick={onOpenModal}>
+                  <span>Détails</span>
+                  <ArrowUpRight absoluteStrokeWidth size={18}/>
+              </button>
             </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+interface ModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const ConstructionModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div style={styles.modalOverlay} onClick={onClose}>
+      <div style={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <button style={styles.closeButton} onClick={onClose}>
+          <X size={24} />
+        </button>
+        
+        <div style={styles.modalBody}>
+          <div style={styles.emojiContainer}>
+            😔
+          </div>
+          <h2 style={styles.modalTitle}>Oops !</h2>
+          <p style={styles.modalText}>
+            Cette page est encore en construction
+          </p>
         </div>
       </div>
     </div>
@@ -80,6 +133,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [internalFilter, setInternalFilter] = useState("UX/UI Design");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -91,11 +145,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "musevibes",
       description: "Application mobile de streaming musical",
       image: "/images/musevibes.jpeg",
-      tags: ["Figma", "Typescript", "React Native", "PostgreSQL"],
+      tags: ["Figma", "Dart", "Flutter", "PostgreSQL"],
       gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
       type: "Mobile",
       status: "En développement",
-      apk: "/apk/base.apk",
+      apk: "",
+      github: "https://github.com/Julio23F/musevibes",
+      isShowing: "github",
     },
     {
       title: "i-TAKALO",
@@ -105,17 +161,24 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
       status: "Terminé",
-      apk: "/apk/base.apk",
+      apk: "",
+      github: "https://github.com/Julio23F/itakalo-mobile",
+      isShowing: "github",
+
     },
     {
       title: "domestik",
       description: "Application mobile collaborative de gestion des tâches",
       image: "/images/domestik.jpeg",
-      tags: ["Figma", "React Native", "Laravel"],
+      tags: ["Figma", "Dart", "Flutter", "Laravel"],
       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)",
       type: "Mobile",
       status: "Terminé",
       apk: "",
+      github: "https://github.com/Julio23F/domestiK",
+      isShowing: "github",
+
+
     },
     {
       title: "Agritech",
@@ -126,46 +189,62 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       type: "Mobile",
       status: "Terminé",
       apk: "",
+      github: "https://github.com/Julio23F/agri_tech",
+      isShowing: "none",
+
+    },
+  {
+      title: "portfolio",
+      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      image: "/images/portfolio.jpeg",
+      tags: [ "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+      type: "Web",
+      status: "Terminé",
+      apk: "",
+      github: "",
+      isShowing: "none",
+
     },
     {
-        title: "portfolio",
-        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-        image: "/images/portfolio.jpeg",
-        tags: [ "Wireframe", "Components", "User interface", "Prototype", "Figma"],
-        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-        type: "Web",
-        status: "Terminé",
-        apk: "",
+      title: "portfolio2",
+      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      image: "/images/portfolio2.png",
+      tags: ["Wireframe", "React Js", "Components", "User interface", "Prototype", "Figma"],
+      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+      type: "Web",
+      status: "Terminé",
+      apk: "",
+      github: "",
+      isShowing: "none",
+      
     },
     {
-        title: "portfolio2",
-        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-        image: "/images/portfolio2.png",
-        tags: ["Wireframe", "Components", "User interface", "Prototype", "Figma"],
-        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-        type: "Web",
-        status: "Terminé",
-        apk: "",
+      title: "velya",
+      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      image: "/images/velya.png",
+      tags: ["React Js", "Components", "User interface", "Prototype", "Figma"],
+      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+      type: "Web",
+      status: "Terminé",
+      apk: "",
+      github: "https://github.com/Julio23F/velya",
+      isShowing: "github",
+
     },
     {
-        title: "velya",
-        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-        image: "/images/velya.png",
-        tags: ["Wireframe", "Components", "User interface", "Prototype", "Figma"],
-        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-        type: "Web",
-        status: "Terminé",
-        apk: "",
-    },
-    {
-        title: "youstudy",
-        description: "Etude de cas UX/UI design d'une application de taxi moto locale",
-        image: "/images/youstudy.jpeg",
-        tags: ["Wireframe", "Components", "User interface", "Prototype", "Figma"],
-        gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-        type: "Web",
-        status: "Terminé",
-        apk: "",
+      title: "youstudy",
+      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      image: "/images/youstudy.jpeg",
+      tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
+      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+      type: "Web",
+      status: "Terminé",
+      apk: "",
+      github: "",
+      isShowing: "none",
+
+
     },
   ];
 
@@ -182,14 +261,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const goToSlide = useCallback((index: number) => {
     if (isTransitioning) return;
 
-    // On small screens, perform a smooth scroll to the slide
     if (isSmallScreen && carouselRef.current) {
       const container = carouselRef.current;
       const slideWidth = container.offsetWidth;
       setIsTransitioning(true);
       container.scrollTo({ left: index * slideWidth, behavior: 'smooth' });
       setCurrentIndex(index);
-      // allow scroll animation to finish
       setTimeout(() => setIsTransitioning(false), 600);
       return;
     }
@@ -221,7 +298,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     return () => clearInterval(interval);
   }, [goToNext, filteredProjects.length]);
 
-  // Detect small screens to enable touch/scroll behavior
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 640px)');
     const handle = (e: MediaQueryListEvent | MediaQueryList) => setIsSmallScreen(e.matches);
@@ -229,7 +305,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     if (mq.addEventListener) {
       mq.addEventListener('change', handle);
     } else {
-      // Fallback for older browsers
       mq.addListener(handle);
     }
     return () => {
@@ -241,7 +316,6 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     };
   }, []);
 
-  // When on small screens, update currentIndex based on scroll position
   useEffect(() => {
     if (!isSmallScreen || !carouselRef.current) return;
     const container = carouselRef.current;
@@ -292,72 +366,79 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   }
 
   return (
-    <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}} id="projects">
-      <div style={{...styles.container}}>
-        <h2 style={styles.sectionTitle}>PROJETS</h2>
-        
-        <div style={styles.filterContainer}>
-          {filters.map((filterOption) => (
-            <button
-              key={filterOption}
-              onClick={() => setFilter(filterOption)}
-              style={filter === filterOption ? styles.filterButtonActive : styles.filterButton}
-            >
-              {filterOption}
-            </button>
-          ))}
-        </div>
-
-        <div style={{...styles.carouselWrapper}}>
-          {/* Hide nav buttons on small screens, allow touch scrolling */}
-          {!isSmallScreen && filteredProjects.length > 1 && (
-            <button onClick={goToPrev} style={styles.navButton}>
-              <MoveLeft absoluteStrokeWidth size={18} />
-            </button>
-          )}
-
-          <div
-            style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', paddingLeft: '2px', paddingRight: '2px', boxSizing: 'border-box'} : styles.carouselContainer}
-            ref={carouselRef}
-          >
-            <div
-              style={isSmallScreen ? { ...styles.carouselTrack, transform: undefined, gap: '0', display: 'flex' } : { ...styles.carouselTrack, transform: `translateX(-${currentIndex * 100}%)` }}
-            >
-              {filteredProjects.map((project, idx) => (
-                <div
-                  key={idx}
-                  style={isSmallScreen ? { ...styles.carouselSlide, minWidth: '100%', flex: '0 0 100%', scrollSnapAlign: 'center', scrollSnapStop: 'always', marginLeft: "10px", marginRight: "10px" } : styles.carouselSlide}
-                >
-                  <ProjectCard
-                    project={project}
-                    style={isSmallScreen ? { width: '100%', minHeight: 'min(600px, 75vh)' } : undefined}
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {!isSmallScreen && filteredProjects.length > 1 && (
-            <button onClick={goToNext} style={styles.navButton}>
-              <MoveRight absoluteStrokeWidth size={18} />
-            </button>
-          )}
-        </div>
-
-        {filteredProjects.length > 1 && (
-          <div style={styles.pagination}>
-            {filteredProjects.map((_, idx) => (
+    <>
+      <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}} id="projects">
+        <div style={{...styles.container}}>
+          <h2 style={styles.sectionTitle}>PROJETS</h2>
+          
+          <div style={styles.filterContainer}>
+            {filters.map((filterOption) => (
               <button
-                key={idx}
-                onClick={() => goToSlide(idx)}
-                style={idx === currentIndex ? styles.dotActive : styles.dot}
-                aria-label={`Aller au projet ${idx + 1}`}
-              />
+                key={filterOption}
+                onClick={() => setFilter(filterOption)}
+                style={filter === filterOption ? styles.filterButtonActive : styles.filterButton}
+              >
+                {filterOption}
+              </button>
             ))}
           </div>
-        )}
-      </div>
-    </section>
+
+          <div style={{...styles.carouselWrapper}}>
+            {!isSmallScreen && filteredProjects.length > 1 && (
+              <button onClick={goToPrev} style={styles.navButton}>
+                <MoveLeft absoluteStrokeWidth size={18} />
+              </button>
+            )}
+
+            <div
+              style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', paddingLeft: '2px', paddingRight: '2px', boxSizing: 'border-box'} : styles.carouselContainer}
+              ref={carouselRef}
+            >
+              <div
+                style={isSmallScreen ? { ...styles.carouselTrack, transform: undefined, gap: '0', display: 'flex' } : { ...styles.carouselTrack, transform: `translateX(-${currentIndex * 100}%)` }}
+              >
+                {filteredProjects.map((project, idx) => (
+                  <div
+                    key={idx}
+                    style={isSmallScreen ? { ...styles.carouselSlide, minWidth: '100%', flex: '0 0 100%', scrollSnapAlign: 'center', scrollSnapStop: 'always', marginLeft: "10px", marginRight: "10px" } : styles.carouselSlide}
+                  >
+                    <ProjectCard
+                      project={project}
+                      style={isSmallScreen ? { width: '100%', minHeight: 'min(600px, 75vh)' } : undefined}
+                      onOpenModal={() => setIsModalOpen(true)}
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {!isSmallScreen && filteredProjects.length > 1 && (
+              <button onClick={goToNext} style={styles.navButton}>
+                <MoveRight absoluteStrokeWidth size={18} />
+              </button>
+            )}
+          </div>
+
+          {filteredProjects.length > 1 && (
+            <div style={styles.pagination}>
+              {filteredProjects.map((_, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => goToSlide(idx)}
+                  style={idx === currentIndex ? styles.dotActive : styles.dot}
+                  aria-label={`Aller au projet ${idx + 1}`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
+
+      <ConstructionModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
+    </>
   );
 };
 
@@ -579,6 +660,63 @@ const styles = {
     fontSize: '1.125rem',
     color: '#6b7280',
     textAlign: 'center' as const,
+  },
+  modalOverlay: {
+    position: 'fixed' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 1000,
+    backdropFilter: 'blur(4px)',
+  },
+  modalContent: {
+    backgroundColor: 'white',
+    borderRadius: '24px',
+    padding: '40px',
+    maxWidth: '500px',
+    width: '90%',
+    position: 'relative' as const,
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    animation: 'modalFadeIn 0.3s ease-out',
+  },
+  closeButton: {
+    position: 'absolute' as const,
+    top: '16px',
+    right: '16px',
+    background: 'none',
+    border: 'none',
+    cursor: 'pointer',
+    color: '#6b7280',
+    padding: '8px',
+    borderRadius: '50%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.2s',
+  },
+  modalBody: {
+    textAlign: 'center' as const,
+  },
+  emojiContainer: {
+    fontSize: '80px',
+    marginBottom: '20px',
+    animation: 'bounce 1s ease-in-out infinite',
+  },
+  modalTitle: {
+    fontSize: '2rem',
+    fontWeight: 'bold',
+    color: '#1f2937',
+    marginBottom: '16px',
+  },
+  modalText: {
+    fontSize: '1.125rem',
+    color: '#6b7280',
+    lineHeight: '1.6',
   },
 };
 
