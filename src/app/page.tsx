@@ -544,7 +544,19 @@ const Footer = () => {
 
   return (
     <footer style={styles.footer} id="footer">
-      <div style={{...styles.footerContainer}}>
+      <style>
+        {`
+          @media (max-width: 768px) {
+            .footer-container {
+              display: block !important;
+            }
+            .footer-bottom {
+              align-items: center !important;
+            }
+          }
+        `}
+      </style>
+      <div className="footer-container" style={{...styles.footerContainer}}>
         <div >
           <div style={styles.footerLogoContainer}>
             <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
@@ -567,7 +579,7 @@ const Footer = () => {
           })}
         </div>
 
-        <div style={{...styles.footerBottom}}>
+        <div className="footer-bottom" style={{...styles.footerBottom}}>
           <p style={styles.footerText}>© 2025 - Tous droits réservés.</p>
           {/* <div style={styles.footerLinks}>
             <a href="#" style={styles.footerLink}>Mentions légales</a>
@@ -596,7 +608,7 @@ export default function Home() {
       <DistinctionsSection />
       {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
-      {/* <Footer /> */}
+      <Footer />
     </main>
   );
 }
