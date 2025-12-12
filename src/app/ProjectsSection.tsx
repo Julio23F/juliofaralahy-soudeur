@@ -179,7 +179,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     setCurrentIndex(0);
   }, [filter]);
 
-  const goToSlide = (index: number) => {
+  const goToSlide = useCallback((index: number) => {
     if (isTransitioning) return;
 
     // On small screens, perform a smooth scroll to the slide
@@ -197,21 +197,19 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     setIsTransitioning(true);
     setCurrentIndex(index);
     setTimeout(() => setIsTransitioning(false), 500);
-  };
-
+  }, [isTransitioning, isSmallScreen]);
 
   const goToNext = useCallback(() => {
     if (isTransitioning || filteredProjects.length === 0) return;
     const nextIndex = (currentIndex + 1) % filteredProjects.length;
     goToSlide(nextIndex);
-  }, [currentIndex, filteredProjects.length, isTransitioning]);
+  }, [currentIndex, filteredProjects.length, isTransitioning, goToSlide]);
 
   const goToPrev = useCallback(() => {
     if (isTransitioning || filteredProjects.length === 0) return;
     const prevIndex = currentIndex === 0 ? filteredProjects.length - 1 : currentIndex - 1;
     goToSlide(prevIndex);
-  }, [currentIndex, filteredProjects.length, isTransitioning]);
-
+  }, [currentIndex, filteredProjects.length, isTransitioning, goToSlide]);
 
   useEffect(() => {
     if (filteredProjects.length === 0) return;
@@ -228,11 +226,18 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     const mq = window.matchMedia('(max-width: 640px)');
     const handle = (e: MediaQueryListEvent | MediaQueryList) => setIsSmallScreen(e.matches);
     handle(mq);
-    if (mq.addEventListener) mq.addEventListener('change', handle as any);
-    else mq.addListener(handle as any);
+    if (mq.addEventListener) {
+      mq.addEventListener('change', handle);
+    } else {
+      // Fallback for older browsers
+      mq.addListener(handle);
+    }
     return () => {
-      if (mq.removeEventListener) mq.removeEventListener('change', handle as any);
-      else mq.removeListener(handle as any);
+      if (mq.removeEventListener) {
+        mq.removeEventListener('change', handle);
+      } else {
+        mq.removeListener(handle);
+      }
     };
   }, []);
 
@@ -374,7 +379,7 @@ const styles = {
     width: 'min(90%, 800px)',
     lineHeight: "1.05em",
     margin: 'auto'
-  },
+  } as const,
   filterContainer: {
     display: 'flex',
     justifyContent: 'center',
@@ -459,14 +464,12 @@ const styles = {
     right: 0,
     left: 0,
     padding: "20px",
-    // border: "solid red 5px"
   },
   cardTitle: {
     fontSize: 'clamp(1.25rem, 2.5vw, 2rem)',
     fontWeight: 'bold',
     color: '#ffffff',
     marginTop: '17px',
-    // border: "solid red 2px",
     lineHeight: "1em"
   },
   cardDescription: {
@@ -501,11 +504,9 @@ const styles = {
     padding: '0.6rem 1rem',
     backgroundColor: '#3b82f6',
     border: '1px solid #3b82f6',
-
     color: '#ffffff',
     fontSize: '16px',
     fontWeight: '600',
-    // border: 'none',
     borderRadius: '24px',
     cursor: 'pointer',
     transition: 'all 0.3s ease',
@@ -516,7 +517,7 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
     gap: '0.7rem',
-    whiteSpace: 'nowrap',
+    whiteSpace: 'nowrap' as const,
     borderRadius: '9999px',
     fontSize: '1rem',
     fontWeight: '500',
