@@ -168,6 +168,24 @@ const HeroSection = () => {
 
         </div>
       </div>
+      <div style={styles.imageWrapper}>
+        <img 
+          src="/images/profile.png" 
+          alt="" 
+          style={styles.heroImage}
+        />
+
+        <div
+          className="absolute bottom-0 left-0 w-full h-2/5 pointer-events-none"
+          style={{
+            background: "linear-gradient(to top, rgb(248, 250, 252) 2%, rgba(0, 0, 0, 0) 100%)",
+            backdropFilter: "blur(1px)",
+            WebkitBackdropFilter: "blur(1px)"
+          }}
+        ></div>
+
+      </div>
+
     </section>
   );
 };
@@ -618,6 +636,23 @@ const styles: { [key: string]: CSSProperties } = {
     gap: '1rem',
     paddingTop: '2rem',
   },
+  // Hero image
+  imageWrapper: {
+    position: "absolute",
+    right: 0,
+    top: "3%",
+    width: "37%",
+    height: "auto",
+    overflow: "hidden",
+  },
+
+  heroImage: {
+    width: "100%",
+    display: "block",
+    filter: "none",
+    
+  },
+
   primaryButton: {
     display: 'inline-flex',
     alignItems: 'center',
