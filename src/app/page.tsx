@@ -58,8 +58,15 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
             transform: translateY(-10px);
           }
         }
+
+        @media (max-width: 768px) {
+          .header-container {
+            padding: 0.1em 1em !important;
+          }
+        }
       `}</style>
-      <div style={{...styles.headerContainer, position: 'relative', flex: 1}}>
+      
+      <div className="header-container" style={{...styles.headerContainer, position: 'relative', flex: 1}}>
         <div style={styles.logoContainer}>
           <img 
             src="/images/logo.png" 
@@ -124,9 +131,82 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
 };
 
 // Composant Hero
+// const HeroSection = () => {
+//   return (
+//     <section style={styles.heroSection}>
+//       <div style={styles.heroContainer}>
+//         <aside style={styles.heroTitles}>
+//           {/* <h1 style={styles.title1}>DEVELOPER</h1>
+//           <h1 style={styles.title2}>UX/UI DESIGNER</h1> */}
+//           <h1 style={styles.title1}>MOBILE &</h1>
+//           <h1 style={styles.title2}>WEB DEVELOPPEUR</h1>
+//         </aside>
+
+//         <div style={styles.heroContent}>
+//           <p style={styles.subtitle}>"Toujours apprendre, toujours s’améliorer"</p>
+//           <p style={styles.description}>
+//             Je me spécialise dans le développement web avec Django et React JS.
+//           </p>
+//         </div>
+
+//         <div style={styles.heroButtons}>
+//           <a 
+//             href="https://wa.me/+2610320513845" 
+//             target="_blank" 
+//             rel="noopener noreferrer"
+//             style={{ textDecoration: "none" }}
+//           >
+//             <button style={styles.primaryButton}>
+//               <span>Contactez-moi</span>
+//               <ArrowUpRight absoluteStrokeWidth size={18}/>
+//             </button>
+//           </a>
+//           <a 
+//             href="https://drive.google.com/file/d/1J73ZJI0LbSo1GHoKm_fcXTIa-5UBCMma/view?usp=sharing" 
+//             target="_blank" 
+//             rel="noopener noreferrer"
+//             style={{ textDecoration: "none" }}
+//           >
+//             <button style={styles.secondaryButton}>
+//               <span>Voir mon CV</span>
+//               <Download absoluteStrokeWidth size={18} />
+//             </button>
+//           </a>
+
+//         </div>
+//       </div>
+//       <div style={styles.imageWrapper}>
+//         <img 
+//           src="/images/profile.png" 
+//           alt="" 
+//           style={styles.heroImage}
+//         />
+
+//         <div
+//           className="absolute bottom-0 left-0 w-full h-2/5 pointer-events-none"
+//           style={{
+//             background: "linear-gradient(to top, rgb(248, 250, 252) 2%, rgba(0, 0, 0, 0) 100%)",
+//             backdropFilter: "blur(1px)",
+//             WebkitBackdropFilter: "blur(1px)"
+//           }}
+//         ></div>
+
+//       </div>
+
+//     </section>
+//   );
+// };
 const HeroSection = () => {
   return (
     <section style={styles.heroSection}>
+      <style>{`
+        @media (max-width: 768px) {
+          .hero-image-wrapper {
+            display: none !important;
+          }
+        }
+      `}</style>
+      
       <div style={styles.heroContainer}>
         <aside style={styles.heroTitles}>
           {/* <h1 style={styles.title1}>DEVELOPER</h1>
@@ -136,9 +216,9 @@ const HeroSection = () => {
         </aside>
 
         <div style={styles.heroContent}>
-          <p style={styles.subtitle}>"Crée avec passion, avance avec vision"</p>
+          <p style={styles.subtitle}>"Toujours apprendre, toujours s’améliorer"</p>
           <p style={styles.description}>
-            Je me spécialise dans le développement informatique et l'UX UI design.
+            Je me spécialise dans le développement web avec Django et React JS.
           </p>
         </div>
 
@@ -168,24 +248,21 @@ const HeroSection = () => {
 
         </div>
       </div>
-      <div style={styles.imageWrapper}>
-        <img 
-          src="/images/profile.png" 
-          alt="" 
-          style={styles.heroImage}
-        />
 
-        <div
-          className="absolute bottom-0 left-0 w-full h-2/5 pointer-events-none"
-          style={{
-            background: "linear-gradient(to top, rgb(248, 250, 252) 2%, rgba(0, 0, 0, 0) 100%)",
-            backdropFilter: "blur(1px)",
-            WebkitBackdropFilter: "blur(1px)"
-          }}
-        ></div>
-
+      <div className="hero-image-wrapper" style={styles.imageWrapper}>
+        <img src="/images/profile.png" alt="" style={styles.heroImage} />
+        <div style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          width: "100%",
+          height: "40%",
+          pointerEvents: "none",
+          background: "linear-gradient(to top, rgb(248, 250, 252) 2%, rgba(0, 0, 0, 0) 100%)",
+          backdropFilter: "blur(1px)",
+          WebkitBackdropFilter: "blur(1px)"
+        }} />
       </div>
-
     </section>
   );
 };
@@ -543,14 +620,15 @@ const styles: { [key: string]: CSSProperties } = {
     
   },
   headerContainer: {
-    maxWidth: 'max(400px, 40%)',
+    maxWidth: 'max(400px, 37%)',
     // maxWidth: 'min(80rem, 40%)',
     margin: '0 auto',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: "#2b2834",
-    padding: "0.7em 1em",
+    padding: "0.5em 1em",
+    // padding: "clamp(0.7rem, 0.7em, 0.1em) 1em",
     borderRadius: '3em',
   },  
   logoContainer: {
@@ -644,6 +722,7 @@ const styles: { [key: string]: CSSProperties } = {
     width: "37%",
     height: "auto",
     overflow: "hidden",
+    display: "clamp(block, none, none)",
   },
 
   heroImage: {
