@@ -129,8 +129,10 @@ const HeroSection = () => {
     <section style={styles.heroSection}>
       <div style={styles.heroContainer}>
         <aside style={styles.heroTitles}>
-          <h1 style={styles.title1}>DEVELOPER</h1>
-          <h1 style={styles.title2}>UX/UI DESIGNER</h1>
+          {/* <h1 style={styles.title1}>DEVELOPER</h1>
+          <h1 style={styles.title2}>UX/UI DESIGNER</h1> */}
+          <h1 style={styles.title1}>MOBILE &</h1>
+          <h1 style={styles.title2}>WEB DEVELOPPEUR</h1>
         </aside>
 
         <div style={styles.heroContent}>
