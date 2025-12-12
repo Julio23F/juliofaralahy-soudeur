@@ -274,7 +274,8 @@ const AboutSection = () => {
       <div style={styles.sectionContainer}>
         <h2 style={styles.sectionTitle} className={`${karantina.className}`}>MES PROPOS</h2>
         <p style={styles.aboutText}>
-        Passionné par la création numérique 💡, je conçois et développe des interfaces web et mobiles avec JavaScript, React.js et React Native. Je travaille aussi sur le backend avec Python, en utilisant notamment le framework Django, pour construire des applications fiables et bien organisées.
+        {/* Passionné par la création numérique 💡, je conçois et développe des interfaces web et mobiles avec JavaScript, React.js et React Native. Je travaille aussi sur le backend avec Python, en utilisant notamment le framework Django, pour construire des applications fiables et bien organisées. */}
+          J’ai toujours eu ce goût pour la création numérique 💡. Aujourd’hui, je conçois et développe des interfaces web et mobiles avec JavaScript, React.js et React Native. Je travaille aussi sur le backend avec Python, notamment avec Django, pour donner vie à des applications fiables, structurées et agréables à utiliser
         </p>
       </div>
     </section>
@@ -819,7 +820,7 @@ const styles: { [key: string]: CSSProperties } = {
   aboutText: {
     fontSize: 'clamp(1rem, 1.6vw, 1.125rem)',
     lineHeight: '1.6',
-    width: 'min(75%, 95%)',
+    width: 'min(77%, 95%)',
     margin: 'auto'
   },
   
