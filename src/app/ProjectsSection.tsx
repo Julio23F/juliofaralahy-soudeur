@@ -194,10 +194,22 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
     },
     {
+      title: "youstudy",
+      description: "Projet réalisé pour faciliter l'étude en ligne. L'objectif du site est de connecter les enseignants avec les étudiants.",
+      image: "/images/youstudy.jpeg",
+      tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
+      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
+      type: "Web",
+      status: "Terminé",
+      apk: "",
+      github: "",
+      isShowing: "none",
+    },
+    {
       title: "portfolio",
       description: "C'était mon tout premier portfolio. Je l'ai conçu et réalisé uniquement avec HTML et CSS.",
       image: "/images/portfolio.jpeg",
-      tags: ["Wireframe", "Components", "User interface", "Prototype", "Figma"],
+      tags: ["Wireframe", "HTML & CSS", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
       status: "Terminé",
@@ -229,18 +241,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       github: "https://github.com/Julio23F/velya",
       isShowing: "github",
     },
-    {
-      title: "youstudy",
-      description: "Projet réalisé pour faciliter l'étude en ligne. L'objectif du site est de connecter les enseignants avec les étudiants.",
-      image: "/images/youstudy.jpeg",
-      tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
-      status: "Terminé",
-      apk: "",
-      github: "",
-      isShowing: "none",
-    },
+
 
   ];
 
