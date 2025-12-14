@@ -193,22 +193,21 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       isShowing: "none",
 
     },
-  {
+    {
       title: "portfolio",
-      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      description: "C'était mon tout premier portfolio. Je l'ai conçu et réalisé uniquement avec HTML et CSS.",
       image: "/images/portfolio.jpeg",
-      tags: [ "Wireframe", "Components", "User interface", "Prototype", "Figma"],
+      tags: ["Wireframe", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
       status: "Terminé",
       apk: "",
       github: "",
       isShowing: "none",
-
     },
     {
       title: "portfolio2",
-      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      description: "C'était mon second portfolio, dans lequel j'ai apporté plusieurs améliorations par rapport à la première version.",
       image: "/images/portfolio2.png",
       tags: ["Wireframe", "React Js", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
@@ -217,11 +216,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       apk: "",
       github: "",
       isShowing: "none",
-      
     },
     {
       title: "velya",
-      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      description: "Site web d'une ESN. J'ai voulu créer une startup, et ce site a été conçu pour la représenter en ligne.",
       image: "/images/velya.png",
       tags: ["React Js", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
@@ -230,11 +228,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       apk: "",
       github: "https://github.com/Julio23F/velya",
       isShowing: "github",
-
     },
     {
       title: "youstudy",
-      description: "Etude de cas UX/UI design d'une application de taxi moto locale",
+      description: "Projet réalisé pour faciliter l'étude en ligne. L'objectif du site est de connecter les enseignants avec les étudiants.",
       image: "/images/youstudy.jpeg",
       tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
@@ -243,9 +240,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       apk: "",
       github: "",
       isShowing: "none",
-
-
     },
+
   ];
 
   const filters = ["UX/UI Design", "Web", "Mobile"];
