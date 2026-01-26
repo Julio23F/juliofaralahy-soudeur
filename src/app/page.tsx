@@ -235,7 +235,7 @@ const HeroSection = () => {
             </button>
           </a>
           <a 
-            href="https://drive.google.com/file/d/1gE7sZl5p9A5nyWISFYZDSYGHwlVlZ7Ex/view?usp=sharing" 
+            href="https://drive.google.com/file/d/1o8pzuQyv0kBOmDVnUPAeERTYv5vx2Fvi/view?usp=sharing" 
             target="_blank" 
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}
