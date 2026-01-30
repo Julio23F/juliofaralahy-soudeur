@@ -136,7 +136,7 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
         </button>
 
         <div style={styles.projectModalBody}>
-          <div style={{width: '55%',}}>
+          <div style={{width: '52%',}}>
             <div style={styles.mainImageContainer}>
               <img 
                 src={currentImage} 
@@ -860,9 +860,9 @@ const styles = {
   projectModalContent: {
     backgroundColor: 'white',
     borderRadius: '24px',
-    width: '95%',
+    width: '90%',
     maxWidth: '1400px',
-    height: '85vh',
+    height: '88vh',
     position: 'relative' as const,
     boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
     overflow: 'hidden',
@@ -887,7 +887,7 @@ const styles = {
     backgroundColor: '#f3f4f6',
     borderRadius: '16px',
     overflow: 'hidden',
-    height: '500px',
+    height: '380px',
     width: '100%',
   },
   mainImage: {
@@ -955,7 +955,7 @@ const styles = {
     display: 'flex',
     gap: '8px',
     overflowX: 'auto' as const,
-    paddingTop: '25px',
+    paddingTop: '15px',
   },
   thumbnail: {
     width: '95px',
