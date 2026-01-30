@@ -5,6 +5,7 @@ interface Project {
   title: string;
   description: string;
   image: string;
+  images?: string[];
   tags: string[];
   gradient: string;
   type: string;
@@ -17,7 +18,7 @@ interface Project {
 interface ProjectCardProps {
   project: Project;
   style?: React.CSSProperties;
-  onOpenModal: () => void;
+  onOpenModal: (project: Project) => void;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }) => {
@@ -72,7 +73,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }
                       cursor: project.apk ? "pointer" : "not-allowed"
                     }}
                     disabled={!project.apk}
-                    onClick={onOpenModal}
+                    onClick={() => onOpenModal(project)}
                   >
                     <span>Télécharger</span>
                     <Download absoluteStrokeWidth size={18} />
@@ -81,7 +82,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }
               }
 
               
-              <button style={styles.detailsButton} onClick={onOpenModal}>
+              <button style={styles.detailsButton} onClick={() => onOpenModal(project)}>
                   <span>Détails</span>
                   <ArrowUpRight absoluteStrokeWidth size={18}/>
               </button>
@@ -96,6 +97,128 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
 }
+
+interface ProjectDetailsModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  project: Project | null;
+}
+
+const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClose, project }) => {
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  
+  if (!isOpen || !project) return null;
+
+  const images = project.images && project.images.length > 0 ? project.images : [project.image];
+  const currentImage = images[selectedImageIndex];
+
+  const handlePrevImage = () => {
+    setSelectedImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const handleNextImage = () => {
+    setSelectedImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleThumbnailClick = (index: number) => {
+    setSelectedImageIndex(index);
+  };
+
+  return (
+    <div style={styles.modalOverlay} onClick={onClose}>
+      <div style={styles.projectModalContent} onClick={(e) => e.stopPropagation()}>
+        <button style={styles.closeButton} onClick={onClose}>
+          <X size={24} />
+        </button>
+
+        <div style={styles.projectModalBody}>
+          <div style={{width: '55%',}}>
+            <div style={styles.mainImageContainer}>
+              <img 
+                src={currentImage} 
+                alt={`${project.title} - Vue principale`}
+                style={styles.mainImage}
+              />
+              {images.length > 1 && (
+                <>
+                  <button 
+                    style={{...styles.imageNavButton, left: '16px'}}
+                    onClick={handlePrevImage}
+                    aria-label="Image précédente"
+                  >
+                    <MoveLeft size={20} />
+                  </button>
+                  <button 
+                    style={{...styles.imageNavButton, right: '16px'}}
+                    onClick={handleNextImage}
+                    aria-label="Image suivante"
+                  >
+                    <MoveRight size={20} />
+                  </button>
+                </>
+              )}
+            </div>
+            {/* <p style={styles.otherPicturesTitle}>D'autres images</p> */}
+            {images.length > 1 && (
+              <div style={styles.thumbnailsContainer}>
+                {images.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => handleThumbnailClick(idx)}
+                    style={{
+                      ...styles.thumbnail,
+                      border: idx === selectedImageIndex ? '3px solid #3b82f6' : '2px solid #e5e7eb',
+                      opacity: idx === selectedImageIndex ? 1 : 0.6,
+                    }}
+                  >
+                    <img 
+                      src={img} 
+                      alt={`${project.title} - Vue ${idx + 1}`}
+                      style={styles.thumbnailImage}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
+            
+            
+          </div>
+          
+
+          <div style={styles.projectDetailsSection}>
+            <h2 style={styles.projectModalTitle}>{project.title}</h2>
+            <p style={styles.projectModalDescription}>{project.description}</p>
+            
+            <div style={styles.tagsContainerModal}>
+              {project.tags.map((tag, idx) => (
+                <span key={idx} style={styles.tagModal}>
+                  {tag}
+                </span>
+              ))}
+            </div>
+            <div className='mt-5'>
+              <a href={project.github} target="_blank" rel="noopener noreferrer">
+                <button
+                  style={{
+                    ...styles.secondaryButton,
+                    opacity: project.github ? 1 : 0.5,
+                    cursor: project.github ? "pointer" : "not-allowed"
+                  }}
+                  disabled={!project.github}
+                  // onClick={onOpenModal}
+                >
+                  <span>Github</span>
+                  <Github absoluteStrokeWidth size={18} />
+                </button>
+              </a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const ConstructionModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
@@ -134,6 +257,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const carouselRef = useRef<HTMLDivElement>(null);
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -145,6 +269,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "musevibes",
       description: "Application mobile de streaming musical",
       image: "/images/musevibes.jpeg",
+      images: ["/images/musevibes.jpeg", "/images/itakalo.webp", "/images/musevibes.jpeg"],
       tags: ["Figma", "Dart", "Flutter", "PostgreSQL"],
       gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
       type: "Mobile",
@@ -157,6 +282,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "i-TAKALO",
       description: "Application mobile de don et vente des articles, divers vêtements et autres.",
       image: "/images/itakalo.webp",
+      images: ["/images/itakalo.webp"],
       tags: ["Typescript", "React Native", "PostgreSQL", "Django"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
@@ -170,6 +296,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "domestik",
       description: "Application mobile collaborative de gestion des tâches",
       image: "/images/domestik.jpeg",
+      images: ["/images/domestik.jpeg"],
       tags: ["Figma", "Dart", "Flutter", "Laravel"],
       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)",
       type: "Mobile",
@@ -178,12 +305,12 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       github: "https://github.com/Julio23F/domestiK",
       isShowing: "github",
 
-
     },
     {
       title: "Agritech",
       description: "Solution mobile connectée pour la qualité des produits agricoles",
       image: "/images/agritech.jpeg",
+      images: ["/images/agritech.jpeg", "/images/agritech.jpeg"],
       tags: ["Figma", "React Native", "Firebase"],
       gradient: "linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 50%, #ddd6fe 100%)",
       type: "Mobile",
@@ -197,6 +324,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "youstudy",
       description: "Projet réalisé pour faciliter l'étude en ligne. L'objectif du site est de connecter les enseignants avec les étudiants.",
       image: "/images/youstudy.jpeg",
+      images: ["/images/youstudy.jpeg"],
       tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
@@ -209,6 +337,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "portfolio",
       description: "C'était mon tout premier portfolio. Je l'ai conçu et réalisé uniquement avec HTML et CSS.",
       image: "/images/portfolio.jpeg",
+      images: ["/images/portfolio.jpeg"],
       tags: ["Wireframe", "HTML & CSS", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
@@ -221,6 +350,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "portfolio2",
       description: "C'était mon second portfolio, dans lequel j'ai apporté plusieurs améliorations par rapport à la première version.",
       image: "/images/portfolio2.png",
+      images: ["/images/portfolio2.png"],
       tags: ["Wireframe", "React Js", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
@@ -233,6 +363,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "velya",
       description: "Site web d'une ESN. J'ai voulu créer une startup, et ce site a été conçu pour la représenter en ligne.",
       image: "/images/velya.png",
+      images: ["/images/velya.png"],
       tags: ["React Js", "Components", "User interface", "Prototype", "Figma"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
@@ -402,7 +533,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
                     <ProjectCard
                       project={project}
                       style={isSmallScreen ? { width: '100%', minHeight: 'min(600px, 75vh)' } : undefined}
-                      onOpenModal={() => setIsModalOpen(true)}
+                      onOpenModal={(proj) => {
+                        setSelectedProject(proj);
+                        setIsModalOpen(true);
+                      }}
                     />
                   </div>
                 ))}
@@ -431,9 +565,13 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
       </section>
 
-      <ConstructionModal 
+      <ProjectDetailsModal 
         isOpen={isModalOpen} 
-        onClose={() => setIsModalOpen(false)} 
+        onClose={() => {
+          setIsModalOpen(false);
+          setSelectedProject(null);
+        }}
+        project={selectedProject}
       />
     </>
   );
@@ -714,6 +852,122 @@ const styles = {
     fontSize: '1.125rem',
     color: '#6b7280',
     lineHeight: '1.6',
+  },
+  projectModalContent: {
+    backgroundColor: 'white',
+    borderRadius: '24px',
+    width: '95%',
+    maxWidth: '1400px',
+    height: '85vh',
+    position: 'relative' as const,
+    boxShadow: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+    overflow: 'hidden',
+    display: 'flex',
+    flexDirection: 'column' as const,
+  },
+  projectModalBody: {
+    display: 'flex',
+    gap: '24px',
+    padding: '40px',
+    overflowY: 'auto' as const,
+    height: '100%',
+    flex: 1,
+  },
+  mainImageContainer: {
+    position: 'relative' as const,
+    flex: '0 0 50%',
+    minWidth: '0',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#f3f4f6',
+    borderRadius: '16px',
+    overflow: 'hidden',
+    height: '500px',
+    width: '100%',
+  },
+  mainImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover' as const,
+    display: 'block',
+  },
+  imageNavButton: {
+    position: 'absolute' as const,
+    top: '50%',
+    transform: 'translateY(-50%)',
+    backgroundColor: 'rgba(0, 0, 0, 0.6)',
+    border: 'none',
+    color: 'white',
+    width: '44px',
+    height: '44px',
+    borderRadius: '50%',
+    cursor: 'pointer',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    transition: 'all 0.3s ease',
+    zIndex: 10,
+  },
+  projectDetailsSection: {
+    flex: '0 0 380px',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    gap: '16px',
+    overflowY: 'auto' as const,
+  },
+  projectModalTitle: {
+    fontSize: '1.875rem',
+    fontWeight: 'bold',
+    color: '#1f2937',
+    marginBottom: '8px',
+  },
+  otherPicturesTitle: {
+    fontSize: '1.5rem',
+    fontWeight: 'bold',
+    color: '#1f2937',
+    marginTop: '8px',
+    marginBottom: '0',
+  },
+  projectModalDescription: {
+    fontSize: '0.95rem',
+    color: '#6b7280',
+    lineHeight: '1.6',
+  },
+  tagsContainerModal: {
+    display: 'flex',
+    flexWrap: 'wrap' as const,
+    gap: '8px',
+  },
+  tagModal: {
+    backgroundColor: '#ccfd16',
+    padding: '6px 12px',
+    borderRadius: '12px',
+    fontSize: '0.8rem',
+    color: '#1f2937',
+    fontWeight: '600',
+  },
+  thumbnailsContainer: {
+    display: 'flex',
+    gap: '8px',
+    overflowX: 'auto' as const,
+    paddingTop: '25px',
+  },
+  thumbnail: {
+    width: '95px',
+    height: '95px',
+    borderRadius: '8px',
+    backgroundColor: '#f3f4f6',
+    cursor: 'pointer',
+    overflow: 'hidden',
+    transition: 'all 0.3s ease',
+    flexShrink: 0,
+  },
+  thumbnailImage: {
+    width: '100%',
+    height: '100%',
+    objectFit: 'cover' as const,
+    display: 'block',
   },
 };
 
