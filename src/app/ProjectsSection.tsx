@@ -107,6 +107,10 @@ interface ProjectDetailsModalProps {
 const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClose, project }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
   
+  useEffect(() => {
+    setSelectedImageIndex(0);
+  }, [project]);
+  
   if (!isOpen || !project) return null;
 
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
@@ -159,7 +163,7 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
               )}
             </div>
             {/* <p style={styles.otherPicturesTitle}>D'autres images</p> */}
-            {images.length > 1 && (
+            {true && (
               <div style={styles.thumbnailsContainer}>
                 {images.map((img, idx) => (
                   <button
