@@ -284,19 +284,40 @@ const AboutSection = () => {
 
 
 // Composant Expertise
-// const ExpertiseCard = ({ expertise }: { expertise: any }) => {
-  const ExpertiseCard = ({ expertise }: { expertise: { icon: string; title: string; description: string } }) => {
+  const ExpertiseCard = ({ expertise }: { expertise: { icon: string; title: string; description: string; company: string, period: string, location: string, skills: string[] } }) => {
   return (
     <div style={styles.expertiseCard}>
-      <div style={styles.expertiseContent}>
+      <div
+        style={{
+          ...styles.expertiseContent,
+          alignItems: expertise.skills ? 'center' : 'flex-start',
+          gap: expertise.skills ? '2rem' : '1.5rem',
+        }}
+      >
+
         {expertise.icon ? (
           <div style={styles.expertiseIconContainer}>
             <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} />
           </div>
         ) : null}
-        <div>
-          <h3 style={styles.expertiseTitle}>{expertise.title}</h3>
+        <div style={{width: "100%"}}>
+          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+            <div style={{lineHeight: "1.4em", marginBottom: "10px"}}>
+              <h3 style={styles.jobTitle}>{expertise.title}</h3>
+              <p style={styles.companyName}>{expertise?.company}</p>
+            </div>
+            <div style={{ textAlign: 'right', lineHeight: "1em", }}>
+                <p style={styles.period}>{expertise?.period}</p>
+                <p style={styles.locationText}>{expertise?.location}</p>
+            </div>
+          </div>
           <p style={styles.expertiseDescription}>{expertise.description}</p>
+
+          <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+            {expertise.skills && expertise.skills.map((s, i) => (
+              <span key={i} style={styles.skillTag}>{s}</span>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -314,7 +335,7 @@ const DistinctionsSection = () => {
     {
       icon: "/images/trophy.svg",
       title: "3ème place — Hackathon IFM 2025",
-      description: "Hackathon organisé par l'institut français de Madagascar"
+      description: "Hackathon organisé par l'institut français de Madagascar",
     },
   ];
 
@@ -334,39 +355,23 @@ const DistinctionsSection = () => {
 
 
 // Composant Expertises
-const ExpertisesSection = () => {
+const ExperiencesSection = () => {
   const expertises = [
     {
-      icon: "https://ext.same-assets.com/405950729/3232410086.svg",
-      title: "Développement Web",
-      description: "Je conçois et développe une application web performante et évolutif."
+      icon: "/images/softimad_logo.png",
+      title: "Développeur web",
+      description: "Participer à la conception et à la maintenance d'une application web avec Django et React Js",
+      skills: ["Django", "React.js", "JavaScript", "HTML/CSS"],
+      company: "SOFTIMAD ESN",
+      period: "mai. 2024 - aujourd’hui",
+      location: "Antananarivo, Madagascar",
     },
-    {
-      icon: "https://ext.same-assets.com/405950729/1435191985.svg",
-      title: "Développement Mobile",
-      description: "Je conçois, développe et distribue des applications mobiles android, avec une compétence élargie dans le domaine"
-    },
-    {
-      icon: "https://ext.same-assets.com/405950729/1730093051.svg",
-      title: "Analyse & conception - UX/UI Design",
-      description: "Je réalise des audits, analyse, conception et prototypage pour divers applicaitons, que ce soit web ou mobile"
-    },
-    {
-      icon: "https://ext.same-assets.com/405950729/4180290346.svg",
-      title: "Intégration",
-      description: "Je réalise des intégrations des prototype, des UI dans Figma pour les transformer en code"
-    },
-    {
-      icon: "https://ext.same-assets.com/405950729/4045969482.svg",
-      title: "Refont application",
-      description: "Je réalise des audits et des analyses pour mieux concevoir une interface plus évolutif et viable"
-    }
   ];
 
   return (
     <section style={styles.section}>
       <div style={styles.mediumSectionContainer}>
-        <h2 style={styles.sectionTitle}>EXPERTISES</h2>
+        <h2 style={styles.sectionTitle}>EXPÉRIENCES</h2>
         <div style={styles.expertisesGrid}>
           {expertises.map((expertise, idx) => (
             <ExpertiseCard key={idx} expertise={expertise} />
@@ -616,7 +621,8 @@ export default function Home() {
       <HeroSection />
       <AboutSection />
       <ProjectsSection filter={projectFilter} setFilter={setProjectFilter} />
-      {/* <ExpertisesSection /> */}
+      {/* <ExperiencesSection /> */}
+      <ExperiencesSection />
       <DistinctionsSection />
       {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
@@ -792,7 +798,7 @@ const styles: { [key: string]: CSSProperties } = {
   
   // Sections
   section: {
-    padding: '3rem 1.5rem',
+    padding: '5rem 1.5rem',
   },
   sectionContainer: {
     maxWidth: 'min(56rem, 95%)',
@@ -921,6 +927,66 @@ const styles: { [key: string]: CSSProperties } = {
     gap: '1.5rem',
     width: '100%',
   },
+  experiencesList: {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '1rem',
+    marginTop: '1.5rem',
+  },
+  experienceCard: {
+    padding: '1.25rem',
+    borderRadius: '1rem',
+    border: '1px solid #e5e7eb',
+    backgroundColor: 'white',
+
+    display: "flex",
+    flexDirection: "column",
+    gap: "0.75rem"
+  },
+  experienceImageContainer: {
+    width: '6rem',
+    height: '6rem',
+    borderRadius: '1rem',
+    overflow: 'hidden',
+    flexShrink: 0,
+  },
+  experienceHeader: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: '1rem',
+    marginBottom: '0.75rem',
+  },
+  jobTitle: {
+    fontSize: '1.25rem',
+    fontWeight: 800,
+    margin: 0,
+  },
+  companyName: {
+    color: '#6b7280',
+    marginTop: '0.25rem',
+  },
+  period: {
+    color: '#9ca3af',
+    fontSize: '0.9rem',
+    margin: 0,
+  },
+  locationText: {
+    color: '#9ca3af',
+    fontSize: '0.9rem',
+    marginTop: '0.25rem',
+  },
+  experienceDesc: {
+    color: '#374151',
+    marginTop: '0.5rem',
+  },
+  skillTag: {
+    padding: '0.25rem 0.5rem',
+    borderRadius: '20px',
+    backgroundColor: '#f3f4f6',
+    color: '#111827',
+    fontSize: '0.85rem',
+  },
   expertiseCard: {
     padding: '2rem',
     borderRadius: '1.5rem',
@@ -932,15 +998,15 @@ const styles: { [key: string]: CSSProperties } = {
   },
   expertiseContent: {
     display: 'flex',
-    gap: '1.5rem',
-    alignItems: 'flex-start',
+    
   },
   expertiseIconContainer: {
     flexShrink: 0,
   },
   expertiseIcon: {
-    width: '3rem',
-    height: '3rem',
+    width: '5rem',
+    height: '5rem',
+    borderRadius: '0.75rem',
   },
   expertiseTitle: {
     fontSize: '1.5rem',
@@ -1139,3 +1205,53 @@ const styles: { [key: string]: CSSProperties } = {
     color: '#ccfd16',
   },
 };
+
+// Composant Expériences
+// const ExperiencesSection = () => {
+//   const experiences = [
+//     {
+//       title: "Développeur web",
+//       company: "SOFTIMAD ESN",
+//       period: "févr. 2026 - aujourd’hui · 1 mois",
+//       location: "Antananarivo, Analamanga, Madagascar · Sur site",
+//       description: "Participer à la conception et à la maintenance d'une application web avec Django et React Js",
+//       skills: ["Python", "Django", "React"],
+//       image: "/images/softimad_logo.png",
+//     }
+//   ];
+
+//   return (
+//     <section style={styles.section} id="experience">
+//       <div style={styles.mediumSectionContainer}>
+//         <h2 style={styles.sectionTitle}>EXPÉRIENCES</h2>
+//         <div style={styles.experiencesList}>
+//           {experiences.map((exp, idx) => (
+//             <div key={idx} style={styles.experienceCard}>
+//               <div style={styles.experienceImageContainer}>
+//                 <img src={exp.image} alt="" />
+//               </div>
+//               <div>
+//                 <div style={styles.experienceHeader}>
+//                   <div>
+//                     <h3 style={styles.jobTitle}>{exp.title}</h3>
+//                     <p style={styles.companyName}>{exp.company}</p>
+//                   </div>
+//                   {/* <div style={{ textAlign: 'right' }}>
+//                     <p style={styles.period}>{exp.period}</p>
+//                     <p style={styles.locationText}>{exp.location}</p>
+//                   </div> */}
+//                 </div>
+//                 <p style={styles.experienceDesc}>{exp.description}</p>
+//                 <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
+//                   {exp.skills.map((s, i) => (
+//                     <span key={i} style={styles.skillTag}>{s}</span>
+//                   ))}
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
