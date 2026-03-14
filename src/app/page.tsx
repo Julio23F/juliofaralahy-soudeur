@@ -286,8 +286,9 @@ const AboutSection = () => {
 // Composant Expertise
   const ExpertiseCard = ({ expertise }: { expertise: { icon: string; title: string; description: string; company: string, period: string, location: string, skills: string[] } }) => {
   return (
-    <div style={styles.expertiseCard}>
+    <div style={styles.expertiseCard} className="expertise-card">
       <div
+        className="expertise-content"
         style={{
           ...styles.expertiseContent,
           alignItems: expertise.skills ? 'center' : 'flex-start',
@@ -296,8 +297,8 @@ const AboutSection = () => {
       >
 
         {expertise.icon ? (
-          <div style={styles.expertiseIconContainer}>
-            <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} />
+          <div style={styles.expertiseIconContainer} className="expertise-icon-container">
+            <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} className="expertise-icon" />
           </div>
         ) : null}
         <div style={{width: "100%"}}>
@@ -320,6 +321,34 @@ const AboutSection = () => {
           </div>
         </div>
       </div>
+      <style>{`
+        .expertise-content {
+          display: flex;
+          flex-direction: row;
+          align-items: flex-start;
+          gap: 1.2rem;
+        }
+        .expertise-icon-container {
+          flex-shrink: 0;
+          min-width: 4.5rem;
+        }
+        @media (max-width: 768px) {
+          .expertise-content {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem;
+          }
+          .expertise-icon-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+          }
+          .expertise-icon {
+            width: 4.5rem;
+            height: 4.5rem;
+          }
+        }
+      `}</style>
     </div>
   );
 };
@@ -1206,52 +1235,3 @@ const styles: { [key: string]: CSSProperties } = {
   },
 };
 
-// Composant Expériences
-// const ExperiencesSection = () => {
-//   const experiences = [
-//     {
-//       title: "Développeur web",
-//       company: "SOFTIMAD ESN",
-//       period: "févr. 2026 - aujourd’hui · 1 mois",
-//       location: "Antananarivo, Analamanga, Madagascar · Sur site",
-//       description: "Participer à la conception et à la maintenance d'une application web avec Django et React Js",
-//       skills: ["Python", "Django", "React"],
-//       image: "/images/softimad_logo.png",
-//     }
-//   ];
-
-//   return (
-//     <section style={styles.section} id="experience">
-//       <div style={styles.mediumSectionContainer}>
-//         <h2 style={styles.sectionTitle}>EXPÉRIENCES</h2>
-//         <div style={styles.experiencesList}>
-//           {experiences.map((exp, idx) => (
-//             <div key={idx} style={styles.experienceCard}>
-//               <div style={styles.experienceImageContainer}>
-//                 <img src={exp.image} alt="" />
-//               </div>
-//               <div>
-//                 <div style={styles.experienceHeader}>
-//                   <div>
-//                     <h3 style={styles.jobTitle}>{exp.title}</h3>
-//                     <p style={styles.companyName}>{exp.company}</p>
-//                   </div>
-//                   {/* <div style={{ textAlign: 'right' }}>
-//                     <p style={styles.period}>{exp.period}</p>
-//                     <p style={styles.locationText}>{exp.location}</p>
-//                   </div> */}
-//                 </div>
-//                 <p style={styles.experienceDesc}>{exp.description}</p>
-//                 <div style={{ marginTop: '1rem', display: 'flex', gap: '0.5rem', flexWrap: 'wrap' }}>
-//                   {exp.skills.map((s, i) => (
-//                     <span key={i} style={styles.skillTag}>{s}</span>
-//                   ))}
-//                 </div>
-//               </div>
-//             </div>
-//           ))}
-//         </div>
-//       </div>
-//     </section>
-//   );
-// };
