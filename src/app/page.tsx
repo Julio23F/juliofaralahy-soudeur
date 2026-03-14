@@ -284,7 +284,15 @@ const AboutSection = () => {
 
 
 // Composant Expertise
-  const ExpertiseCard = ({ expertise }: { expertise: { icon: string; title: string; description: string; company: string, period: string, location: string, skills: string[] } }) => {
+  const ExpertiseCard = ({ expertise }: { expertise: { 
+    icon: string; 
+    title: string; 
+    description: string; 
+    company?: string;   
+    period?: string;   
+    location?: string; 
+    skills?: string[]; 
+  } }) => {
   return (
     <div style={styles.expertiseCard} className="expertise-card">
       <div
