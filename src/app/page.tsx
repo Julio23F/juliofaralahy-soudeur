@@ -4,14 +4,15 @@ import { useState, CSSProperties } from "react";
 import { Karantina, Plus_Jakarta_Sans } from 'next/font/google'
 import { Download, ArrowUpRight } from "lucide-react"
 import ProjectsSection from './ProjectsSection'
-
+import BehindScenesSection from "@/components/BehindScenesSection";
+import AnimatedCTA from "@/components/ui/AnimatedCTA";
 const karantina = Karantina({
   weight: ['400'],
   subsets: ['latin'],
 })
 
 const jakarta = Plus_Jakarta_Sans({
-  weight: ['400', '500', '600', '700'], // exemple de poids
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin'],
 })
 
@@ -24,6 +25,7 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
     { label: "Projets", id: "projects" },
     { label: "Prix & Distinctions", id: "distinctions" },
     { label: "Langages & Outils", id: "tools" },
+    { label: "Mes Vidéos", id: "coulisses" },
     { label: "Contact", id: "footer" }
   ];
 
@@ -130,72 +132,8 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
   );
 };
 
-// Composant Hero
-// const HeroSection = () => {
-//   return (
-//     <section style={styles.heroSection}>
-//       <div style={styles.heroContainer}>
-//         <aside style={styles.heroTitles}>
-//           {/* <h1 style={styles.title1}>DEVELOPER</h1>
-//           <h1 style={styles.title2}>UX/UI DESIGNER</h1> */}
-//           <h1 style={styles.title1}>MOBILE &</h1>
-//           <h1 style={styles.title2}>WEB DEVELOPPEUR</h1>
-//         </aside>
 
-//         <div style={styles.heroContent}>
-//           <p style={styles.subtitle}>"Toujours apprendre, toujours s’améliorer"</p>
-//           <p style={styles.description}>
-//             Je me spécialise dans le développement web avec Django et React JS.
-//           </p>
-//         </div>
 
-//         <div style={styles.heroButtons}>
-//           <a 
-//             href="https://wa.me/+2610320513845" 
-//             target="_blank" 
-//             rel="noopener noreferrer"
-//             style={{ textDecoration: "none" }}
-//           >
-//             <button style={styles.primaryButton}>
-//               <span>Contactez-moi</span>
-//               <ArrowUpRight absoluteStrokeWidth size={18}/>
-//             </button>
-//           </a>
-//           <a 
-//             href="https://drive.google.com/file/d/1XHuOiH-zGE_hxzyfCkMKyIenHKeWNSXE/view?usp=sharing" 
-//             target="_blank" 
-//             rel="noopener noreferrer"
-//             style={{ textDecoration: "none" }}
-//           >
-//             <button style={styles.secondaryButton}>
-//               <span>Voir mon CV</span>
-//               <Download absoluteStrokeWidth size={18} />
-//             </button>
-//           </a>
-
-//         </div>
-//       </div>
-//       <div style={styles.imageWrapper}>
-//         <img 
-//           src="/images/profile.png" 
-//           alt="" 
-//           style={styles.heroImage}
-//         />
-
-//         <div
-//           className="absolute bottom-0 left-0 w-full h-2/5 pointer-events-none"
-//           style={{
-//             background: "linear-gradient(to top, rgb(248, 250, 252) 2%, rgba(0, 0, 0, 0) 100%)",
-//             backdropFilter: "blur(1px)",
-//             WebkitBackdropFilter: "blur(1px)"
-//           }}
-//         ></div>
-
-//       </div>
-
-//     </section>
-//   );
-// };
 const HeroSection = () => {
   return (
     <section style={styles.heroSection}>
@@ -444,51 +382,7 @@ const CertificationsSection = () => {
   );
 };
 
-// Animated CTA component (background grows from bottom to top on hover)
-function AnimatedCTA() {
-  const [hover, setHover] = useState(false);
 
-  return (
-    <a
-      href="https://wa.me/+2610320513845"
-      target="_blank"
-      rel="noopener noreferrer"
-      style={{ textDecoration: 'none' }}
-      onMouseEnter={() => setHover(true)}
-      onMouseLeave={() => setHover(false)}
-    >
-      <div style={{ position: 'relative', display: 'inline-block', borderRadius: '9999px', overflow: 'hidden' }}>
-        <div
-          style={{
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: 0,
-            height: hover ? '100%' : '0%',
-            background: '#c6c737',
-            transition: 'height 350ms cubic-bezier(.2,.8,.2,1)',
-            zIndex: 0,
-            
-          }}
-        />
-
-        <button
-          style={{
-            ...styles.ctaButton,
-            position: 'relative',
-            zIndex: 1,
-            background: 'transparent',
-            border: '2px solid #c6c737',
-            color: '#000',
-          }}
-        >
-          <span style={{ position: 'relative', zIndex: 2, pointerEvents: 'none' }}>Discutons ensemble</span>
-          <ArrowUpRight absoluteStrokeWidth size={18} />
-        </button>
-      </div>
-    </a>
-  );
-}
 
 // Composant Tools
 const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filter: string) => void }) => {
@@ -546,11 +440,9 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
           ))}
         </div>
 
-        <div style={styles.ctaContainer}>
-          <AnimatedCTA />
-        </div>
-
         
+        {/* <AnimatedCTA /> */}
+
       </div>
     </section>
   );
@@ -663,6 +555,7 @@ export default function Home() {
       <DistinctionsSection />
       {/* <CertificationsSection /> */}
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
+      <BehindScenesSection />
       <Footer />
     </main>
   );
@@ -859,7 +752,8 @@ const styles: { [key: string]: CSSProperties } = {
     textAlign: 'center',
     width: 'min(90%, 800px)',
     lineHeight: "1.05em",
-    margin: 'auto'
+    margin: 'auto',
+    textTransform: "uppercase"
   },
   
   // About
@@ -1094,10 +988,7 @@ const styles: { [key: string]: CSSProperties } = {
   toolItem: {
     fontSize: '1rem',
   },
-  ctaContainer: {
-    display: 'flex',
-    justifyContent: 'center',
-  },
+
   ctaButton: {
     borderRadius: '9999px',
     padding: '1.25rem 1.75rem',
