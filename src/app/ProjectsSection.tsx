@@ -12,7 +12,8 @@ interface Project {
   status: string;
   apk: string;
   github?: string;
-  isShowing?: "apk" | "github" | "none";
+  link?: string;
+  isShowing?: "apk" | "github" | "link" | "none";
 }
 
 interface ProjectCardProps {
@@ -78,7 +79,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }
                     <span>Télécharger</span>
                     <Download absoluteStrokeWidth size={18} />
                   </button>
-                ) : null
+                ) : 
+                project.isShowing === "link" ?
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <button
+                    style={{
+                      ...styles.secondaryButton,
+                      opacity: project.link ? 1 : 0.5,
+                      cursor: project.link ? "pointer" : "not-allowed"
+                    }}
+                    disabled={!project.link}
+                  >
+                    <span>Voir</span>
+                    <ArrowUpRight absoluteStrokeWidth size={18} />
+                  </button>
+                </a> 
+                : null
               }
 
               
@@ -200,7 +216,7 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                 </span>
               ))}
             </div>
-            <div className='mt-5'>
+            <div className='mt-5' style={{display: "flex" ,gap: 10}}>
               <a href={project.github} target="_blank" rel="noopener noreferrer">
                 <button
                   style={{
@@ -215,6 +231,24 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                   <Github absoluteStrokeWidth size={18} />
                 </button>
               </a>
+              {project.isShowing === "link" ?
+                <a href={project.link} target="_blank" rel="noopener noreferrer">
+                  <button
+                    style={{
+                      ...styles.secondaryButton,
+                      opacity: project.link ? 1 : 0.5,
+                      cursor: project.link ? "pointer" : "not-allowed",
+                      backgroundColor: '#3b82f6',
+                      color: '#ffffff',
+                      fontWeight: '600',
+                    }}
+                    disabled={!project.link}
+                  >
+                    <span>Voir</span>
+                    <ArrowUpRight absoluteStrokeWidth size={18} />
+                  </button>
+                </a> 
+              : null}
             </div>
             
           </div>
@@ -273,7 +307,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
       title: "musevibes",
       description: "Application mobile de streaming musical",
       image: "/images/musevibes.jpeg",
-      images: ["/images/musevibes.jpeg", "/images/itakalo.webp", "/images/musevibes.jpeg"],
+      images: ["/images/musevibes.jpeg", "/images/musevibes.jpeg"],
       tags: ["Figma", "Dart", "Flutter", "PostgreSQL"],
       gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
       type: "Mobile",
@@ -285,16 +319,27 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
     {
       title: "i-TAKALO",
       description: "Application mobile de don et vente des articles, divers vêtements et autres.",
-      image: "/images/itakalo.webp",
-      images: ["/images/itakalo.webp"],
+      image: "/images/itakalo/itakalo.webp",
+      images: [
+        "/images/itakalo/itakalo.webp", 
+        "/images/itakalo/articles.jpeg",
+        "/images/itakalo/chat.jpeg",
+        "/images/itakalo/login.webp",
+        "/images/itakalo/startscreen.jpeg",
+        "/images/itakalo/logo_itakalo.png",
+        "/images/itakalo/paiement.jpeg",
+        "/images/itakalo/publication.jpeg",
+        "/images/itakalo/updateprofile.jpeg",
+
+      ],
       tags: ["Typescript", "React Native", "PostgreSQL", "Django"],
       gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
       type: "Web",
       status: "Terminé",
       apk: "",
       github: "https://github.com/Julio23F/itakalo-mobile",
-      isShowing: "github",
-
+      link: "https://itakalo.site",
+      isShowing: "link",
     },
     {
       title: "domestik",
