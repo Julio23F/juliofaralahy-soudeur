@@ -19,12 +19,12 @@ const jakarta = Plus_Jakarta_Sans({
 // Composant Header
 const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (open: boolean) => void }) => {
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  
+
   const menuItems = [
     { label: "À propos", id: "about" },
     { label: "Projets", id: "projects" },
-    { label: "Prix & Distinctions", id: "distinctions" },
-    { label: "Langages & Outils", id: "tools" },
+    { label: "Formations", id: "distinctions" },
+    { label: "Compétences", id: "tools" },
     { label: "Mes Vidéos", id: "coulisses" },
     { label: "Contact", id: "footer" }
   ];
@@ -67,17 +67,17 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
           }
         }
       `}</style>
-      
-      <div className="header-container" style={{...styles.headerContainer, position: 'relative', flex: 1}}>
+
+      <div className="header-container" style={{ ...styles.headerContainer, position: 'relative', flex: 1 }}>
         <div style={styles.logoContainer}>
-          <img 
-            src="/images/logo.png" 
-            alt="Logo" 
-            style={styles.rotate }
+          <img
+            src="/images/logo.png"
+            alt="Logo"
+            style={styles.rotate}
           />
         </div>
-        <div style={{  }}>
-          <button 
+        <div style={{}}>
+          <button
             style={styles.menuButton}
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle menu"
@@ -98,7 +98,7 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
             )}
           </button>
           {menuOpen && (
-            <nav style={{...styles.dropdownMenu, animation: menuOpen ? 'slideDown 0.3s ease-out' : 'slideUp 0.3s ease-out'}}>
+            <nav style={{ ...styles.dropdownMenu, animation: menuOpen ? 'slideDown 0.3s ease-out' : 'slideUp 0.3s ease-out' }}>
               {menuItems.map((item) => (
                 <button
                   key={item.id}
@@ -113,15 +113,15 @@ const Header = ({ menuOpen, setMenuOpen }: { menuOpen: boolean; setMenuOpen: (op
                   {item.label}
                 </button>
               ))}
-              <a 
-                href="https://wa.me/+2610320513845" 
-                target="_blank" 
+              <a
+                href="https://wa.me/+2610320513845"
+                target="_blank"
                 rel="noopener noreferrer"
                 style={{ textDecoration: "none", width: '100%' }}
               >
-                <button style={{...styles.primaryButton, backgroundColor: '#ccfd16', color: "#000", padding: '1rem 1.25rem', marginTop: "20px", width: '100%'}}>
+                <button style={{ ...styles.primaryButton, backgroundColor: '#ccfd16', color: "#000", padding: '1rem 1.25rem', marginTop: "20px", width: '100%' }}>
                   <span>Contactez-moi</span>
-                  <ArrowUpRight absoluteStrokeWidth size={18}/>
+                  <ArrowUpRight absoluteStrokeWidth size={18} />
                 </button>
               </a>
             </nav>
@@ -144,37 +144,41 @@ const HeroSection = () => {
           }
         }
       `}</style>
-      
+
       <div style={styles.heroContainer}>
         <aside style={styles.heroTitles}>
-          {/* <h1 style={styles.title1}>DEVELOPER</h1>
-          <h1 style={styles.title2}>UX/UI DESIGNER</h1> */}
-          <h1 style={styles.title1}>MOBILE &</h1>
-          <h1 style={styles.title2}>WEB DEVELOPPEUR</h1>
+          <h1 style={styles.title1}>SOUDEUR &</h1>
+          <h1 style={styles.title2}>ASSEMBLEUR</h1>
         </aside>
 
         <div style={styles.heroContent}>
           <p style={styles.subtitle}>"Toujours apprendre, toujours s’améliorer"</p>
           <p style={styles.description}>
-            Je me spécialise dans le développement web avec Django et React JS.
+            Je me spécialise dans la fabrication et l'assemblage de structures métalliques, notamment les portails en acier.
           </p>
         </div>
 
         <div style={styles.heroButtons}>
-          <a 
-            href="https://wa.me/+2610320513845" 
-            target="_blank" 
+          <a
+            href="https://wa.me/+2610320513845"
+            target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}
           >
             <button style={styles.primaryButton}>
               <span>Contactez-moi</span>
-              <ArrowUpRight absoluteStrokeWidth size={18}/>
+              <ArrowUpRight absoluteStrokeWidth size={18} />
             </button>
           </a>
-          <a 
-            href="https://drive.google.com/file/d/1o8pzuQyv0kBOmDVnUPAeERTYv5vx2Fvi/view?usp=sharing" 
-            target="_blank" 
+          {/* <a
+            href="https://drive.google.com/file/d/1o8pzuQyv0kBOmDVnUPAeERTYv5vx2Fvi/view?usp=sharing"
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{ textDecoration: "none" }}
+          > */}
+          <a
+            href="#"
+            target="_blank"
             rel="noopener noreferrer"
             style={{ textDecoration: "none" }}
           >
@@ -208,12 +212,11 @@ const HeroSection = () => {
 // Composant About
 const AboutSection = () => {
   return (
-    <section style={{...styles.section}} id="about">
+    <section style={{ ...styles.section }} id="about">
       <div style={styles.sectionContainer}>
         <h2 style={styles.sectionTitle} className={`${karantina.className}`}>MES PROPOS</h2>
         <p style={styles.aboutText}>
-        {/* Passionné par la création numérique 💡, je conçois et développe des interfaces web et mobiles avec JavaScript, React.js et React Native. Je travaille aussi sur le backend avec Python, en utilisant notamment le framework Django, pour construire des applications fiables et bien organisées. */}
-          J’ai toujours eu ce goût pour la création numérique 💡. Aujourd’hui, je conçois et développe des interfaces web et mobiles avec JavaScript, React.js et React Native. Je travaille aussi sur le backend avec Python, notamment avec Django, pour donner vie à des applications fiables, structurées et agréables à utiliser
+          J’ai toujours aimé construire et assembler 🔧. Titulaire d’une licence en électronique et mécanique, je lis les plans techniques, j’utilise les instruments de mesure et je prépare, ajuste et soude des pièces métalliques. J’ai suivi une formation pratique en soudage et travaillé comme soudeur, notamment sur la fabrication de portails, avec le souci du travail précis et de la qualité.
         </p>
       </div>
     </section>
@@ -222,15 +225,17 @@ const AboutSection = () => {
 
 
 // Composant Expertise
-  const ExpertiseCard = ({ expertise }: { expertise: { 
-    icon: string; 
-    title: string; 
-    description: string; 
-    company?: string;   
-    period?: string;   
-    location?: string; 
-    skills?: string[]; 
-  } }) => {
+const ExpertiseCard = ({ expertise }: {
+  expertise: {
+    icon: string;
+    title: string;
+    description: string;
+    company?: string;
+    period?: string;
+    location?: string;
+    skills?: string[];
+  }
+}) => {
   return (
     <div style={styles.expertiseCard} className="expertise-card">
       <div
@@ -247,15 +252,15 @@ const AboutSection = () => {
             <img src={expertise.icon} alt={expertise.title} style={styles.expertiseIcon} className="expertise-icon" />
           </div>
         ) : null}
-        <div style={{width: "100%"}}>
-          <div style={{display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-            <div style={{lineHeight: "1.4em", marginBottom: "10px"}}>
+        <div style={{ width: "100%" }}>
+          <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-between" }}>
+            <div style={{ lineHeight: "1.4em", marginBottom: "10px" }}>
               <h3 style={styles.jobTitle}>{expertise.title}</h3>
               <p style={styles.companyName}>{expertise?.company}</p>
             </div>
             <div style={{ textAlign: 'right', lineHeight: "1em", }}>
-                <p style={styles.period}>{expertise?.period}</p>
-                <p style={styles.locationText}>{expertise?.location}</p>
+              <p style={styles.period}>{expertise?.period}</p>
+              <p style={styles.locationText}>{expertise?.location}</p>
             </div>
           </div>
           <p style={styles.expertiseDescription}>{expertise.description}</p>
@@ -303,21 +308,21 @@ const AboutSection = () => {
 const DistinctionsSection = () => {
   const distinctions = [
     {
-      icon: "/images/trophy.svg",
-      title: "2ème place — FNE PITCH Contest 2025",
-      description: "Concours de projet organisé par la Maison de l'Entrepreneuriat et du Développement lors du forum national des entrepreneurs"
+      icon: "",
+      title: "Licence en électronique et mécanique",
+      description: "Formation technique : mécanique, électronique, lecture de plans et instruments de mesure.",
     },
     {
-      icon: "/images/trophy.svg",
-      title: "3ème place — Hackathon IFM 2025",
-      description: "Hackathon organisé par l'institut français de Madagascar",
+      icon: "",
+      title: "Formation pratique en soudage",
+      description: "Apprentissage en atelier : préparation des pièces, pointage, soudage et contrôle de la qualité.",
     },
   ];
 
   return (
     <section style={styles.section} id="distinctions">
       <div style={styles.mediumSectionContainer}>
-        <h2 style={styles.sectionTitle}>PRIX & DISTINCTIONS</h2>
+        <h2 style={styles.sectionTitle}>FORMATIONS</h2>
         <div style={styles.expertisesGrid}>
           {distinctions.map((distinction, idx) => (
             <ExpertiseCard key={idx} expertise={distinction} />
@@ -333,13 +338,10 @@ const DistinctionsSection = () => {
 const ExperiencesSection = () => {
   const expertises = [
     {
-      icon: "/images/softimad_logo.png",
-      title: "Développeur web",
-      description: "Participer à la conception et à la maintenance d'une application web avec Django et React Js",
-      skills: ["Django", "React.js", "JavaScript", "HTML/CSS"],
-      company: "SOFTIMAD ESN",
-      period: "mai. 2024 - aujourd’hui",
-      location: "Antananarivo, Madagascar",
+      icon: "",
+      title: "Soudeur",
+      description: "Fabrication et assemblage de structures métalliques, dont des portails : préparation des pièces, ajustage, pointage, soudage et contrôle de la qualité.",
+      skills: ["Soudage", "Assemblage", "Lecture de plans", "Acier"],
     },
   ];
 
@@ -372,7 +374,7 @@ const CertificationsSection = () => {
             />
           </div>
           <div style={styles.paginationDots}>
-            <div style={{...styles.dot, ...styles.dotActive}} />
+            <div style={{ ...styles.dot, ...styles.dotActive }} />
             <div style={styles.dot} />
             <div style={styles.dot} />
           </div>
@@ -387,43 +389,33 @@ const CertificationsSection = () => {
 // Composant Tools
 const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filter: string) => void }) => {
   const toolsByCategory: { [key: string]: string[] } = {
-    "UX/UI Design": [
-      "Figma", "Adobe XD", "Rive editor"
+    "Soudage": [
+      "Soudage MIG", "Soudage TIG", "Soudage à l'électrode", "Pointage"
     ],
-    "Front-end": [
-      "React", "TypeScript", "JavaScript", "HTML", "CSS", "Tailwind CSS", 
-      "Responsive Design"
+    "Matériaux": [
+      "Acier carbone", "Acier galvanisé", "Acier inoxydable", "Aluminium"
     ],
-    "Back-end": [
-      "Python", "Django", "PostgreSQL", "REST API", 
-      "Authentication", "Deployment"
+    "Plans & mesure": [
+      "Lecture de plans", "Dessins techniques", "Symboles de soudage",
+      "Instruments de mesure", "Tolérances"
     ],
-    "Mobile": [
-      "React Native", "Android", "iOS", "Expo", 
-      "Mobile UI/UX", "App Distribution", "Push Notifications", "Offline Storage", "Performance"
+    "Préparation & finition": [
+      "Meulage", "Chanfreinage", "Nettoyage des joints",
+      "Ajustage et montage", "Contrôle visuel des soudures"
     ],
-    // "Desktop": [
-    //   "Electron", "Qt", "C#", ".NET", "Windows API", "macOS Development", "Linux", 
-    //   "Cross-platform", "Desktop UI", "System Integration", "File Management", "Performance"
-    // ],
-    "Base de donnée": [
-      "PostgreSQL", "Firebase", "SQLite", "MySQL", "Redis",
-      "Data Modeling", "Optimization"
+    "Sécurité": [
+      "Règles de santé et de sécurité", "Équipements de protection individuelle"
     ],
-    // "Graphisme": [
-    //   "Figma", "Adobe Photoshop", "Adobe Illustrator", "Adobe After Effects", "UI Design", 
-    //   "Branding", "Logo Design", "Typography", "Color Theory", "Motion Design", "Icon Design"
-    // ]
   };
 
-  const tools = toolsByCategory[filter] || toolsByCategory["UX/UI Design"];
+  const tools = toolsByCategory[filter] || toolsByCategory["Soudage"];
 
   return (
     <section style={styles.section} id="tools">
       <div style={styles.mediumSectionContainer}>
-        <h2 style={styles.sectionTitle}>LANGAGES & OUTILS</h2>
+        <h2 style={styles.sectionTitle}>COMPÉTENCES</h2>
         <div style={styles.filterContainer}>
-          {["Front-end", "Back-end", "Mobile", "Base de donnée", "UX/UI Design"].map((filterOption) => (
+          {["Soudage", "Matériaux", "Plans & mesure", "Préparation & finition", "Sécurité"].map((filterOption) => (
             <button
               key={filterOption}
               onClick={() => setFilter(filterOption)}
@@ -440,7 +432,7 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
           ))}
         </div>
 
-        
+
         {/* <AnimatedCTA /> */}
 
       </div>
@@ -451,35 +443,34 @@ const ToolsSection = ({ filter, setFilter }: { filter: string; setFilter: (filte
 // Small inline SVG icons (white paths) used inside colored squares
 const GitHubSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
-    <path d="M216,104v8a56.06,56.06,0,0,1-48.44,55.47A39.8,39.8,0,0,1,176,192v40a8,8,0,0,1-8,8H104a8,8,0,0,1-8-8V216H72a40,40,0,0,1-40-40A24,24,0,0,0,8,152a8,8,0,0,1,0-16,40,40,0,0,1,40,40,24,24,0,0,0,24,24H96v-8a39.8,39.8,0,0,1,8.44-24.53A56.06,56.06,0,0,1,56,112v-8a58.14,58.14,0,0,1,7.69-28.32A59.78,59.78,0,0,1,69.07,28,8,8,0,0,1,76,24a59.75,59.75,0,0,1,48,24h24a59.75,59.75,0,0,1,48-24,8,8,0,0,1,6.93,4,59.74,59.74,0,0,1,5.37,47.68A58,58,0,0,1,216,104Z"/>
+    <path d="M216,104v8a56.06,56.06,0,0,1-48.44,55.47A39.8,39.8,0,0,1,176,192v40a8,8,0,0,1-8,8H104a8,8,0,0,1-8-8V216H72a40,40,0,0,1-40-40A24,24,0,0,0,8,152a8,8,0,0,1,0-16,40,40,0,0,1,40,40,24,24,0,0,0,24,24H96v-8a39.8,39.8,0,0,1,8.44-24.53A56.06,56.06,0,0,1,56,112v-8a58.14,58.14,0,0,1,7.69-28.32A59.78,59.78,0,0,1,69.07,28,8,8,0,0,1,76,24a59.75,59.75,0,0,1,48,24h24a59.75,59.75,0,0,1,48-24,8,8,0,0,1,6.93,4,59.74,59.74,0,0,1,5.37,47.68A58,58,0,0,1,216,104Z" />
   </svg>
-  
+
 );
 
 const LinkedInSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
-    <path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z"/>
+    <path d="M216,24H40A16,16,0,0,0,24,40V216a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V40A16,16,0,0,0,216,24ZM96,176a8,8,0,0,1-16,0V112a8,8,0,0,1,16,0ZM88,96a12,12,0,1,1,12-12A12,12,0,0,1,88,96Zm96,80a8,8,0,0,1-16,0V140a20,20,0,0,0-40,0v36a8,8,0,0,1-16,0V112a8,8,0,0,1,15.79-1.78A36,36,0,0,1,184,140Z" />
   </svg>
 );
 
 const FacebookSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
-  {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
-    <path d="M232,128a104.16,104.16,0,0,1-91.55,103.26,4,4,0,0,1-4.45-4V152h24a8,8,0,0,0,8-8.53,8.17,8.17,0,0,0-8.25-7.47H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,8-8.53A8.17,8.17,0,0,0,167.73,80H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0-8,8.53A8.17,8.17,0,0,0,96.27,152H120v75.28a4,4,0,0,1-4.44,4A104.15,104.15,0,0,1,24.07,124.09c2-54,45.74-97.9,99.78-100A104.12,104.12,0,0,1,232,128Z"/>
+    {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
+    <path d="M232,128a104.16,104.16,0,0,1-91.55,103.26,4,4,0,0,1-4.45-4V152h24a8,8,0,0,0,8-8.53,8.17,8.17,0,0,0-8.25-7.47H136V112a16,16,0,0,1,16-16h16a8,8,0,0,0,8-8.53A8.17,8.17,0,0,0,167.73,80H152a32,32,0,0,0-32,32v24H96a8,8,0,0,0-8,8.53A8.17,8.17,0,0,0,96.27,152H120v75.28a4,4,0,0,1-4.44,4A104.15,104.15,0,0,1,24.07,124.09c2-54,45.74-97.9,99.78-100A104.12,104.12,0,0,1,232,128Z" />
   </svg>
 );
 
 const MailSVG = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="white" viewBox="0 0 256 256">
-  {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
-    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,144H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z"/>
+    {/* <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="50" height="50" fill="white" aria-hidden> */}
+    <path d="M224,48H32a8,8,0,0,0-8,8V192a16,16,0,0,0,16,16H216a16,16,0,0,0,16-16V56A8,8,0,0,0,224,48Zm-8,144H40V74.19l82.59,75.71a8,8,0,0,0,10.82,0L216,74.19V192Z" />
   </svg>
 );
 
 // Composant Footer
 const Footer = () => {
   const socialLinks = [
-    { Svg: GitHubSVG, href: 'https://github.com/Julio23F' },
     { Svg: LinkedInSVG, href: 'https://www.linkedin.com/in/julio-faralahy/' },
     { Svg: MailSVG, href: 'mailto:juliofaralahy23@gmail.com' },
     { Svg: FacebookSVG, href: 'https://www.facebook.com/julio.faralahy.5' },
@@ -499,22 +490,22 @@ const Footer = () => {
           }
         `}
       </style>
-      <div className="footer-container" style={{...styles.footerContainer}}>
+      <div className="footer-container" style={{ ...styles.footerContainer }}>
         <div >
           <div style={styles.footerLogoContainer}>
-            <img src="/images/logo.png" alt="Logo" style={{...styles.footerLogo, ...styles.rotate}} />
+            <img src="/images/logo.png" alt="Logo" style={{ ...styles.footerLogo, ...styles.rotate }} />
           </div>
 
           <div style={styles.footerInfo}>
             <h3 style={styles.footerName} className={jakarta.className}>FARALAHY Julio</h3>
-            <div style={{marginTop: '0.5em'}}>
+            <div style={{ marginTop: '0.5em' }}>
               <p style={styles.footerEmail}>juliofaralahy23@gmail.com</p>
               <p style={styles.footerPhone}>+261 32 05 138 45</p>
             </div>
           </div>
         </div>
 
-        <div style={{...styles.socialContainer}}>
+        <div style={{ ...styles.socialContainer }}>
           {socialLinks.map((s, idx) => {
             const Svg = s.Svg;
             return (
@@ -525,7 +516,7 @@ const Footer = () => {
           })}
         </div>
 
-        <div className="footer-bottom" style={{...styles.footerBottom}}>
+        <div className="footer-bottom" style={{ ...styles.footerBottom }}>
           <p style={styles.footerText}>© 2025 - Tous droits réservés.</p>
           {/* <div style={styles.footerLinks}>
             <a href="#" style={styles.footerLink}>Mentions légales</a>
@@ -540,8 +531,8 @@ const Footer = () => {
 
 // Composant Principal
 export default function Home() {
-  const [projectFilter, setProjectFilter] = useState("UX/UI Design");
-  const [toolFilter, setToolFilter] = useState("UX/UI Design");
+  const [projectFilter, setProjectFilter] = useState("Tous");
+  const [toolFilter, setToolFilter] = useState("Soudage");
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -577,7 +568,7 @@ const styles: { [key: string]: CSSProperties } = {
     right: 0,
     zIndex: 50,
     padding: '1rem 1.5rem',
-    
+
   },
   headerContainer: {
     maxWidth: 'max(400px, 37%)',
@@ -590,7 +581,7 @@ const styles: { [key: string]: CSSProperties } = {
     padding: "0.5em 1em",
     // padding: "clamp(0.7rem, 0.7em, 0.1em) 1em",
     borderRadius: '3em',
-  },  
+  },
   logoContainer: {
     width: '3.25rem',
     height: '3.25rem',
@@ -689,7 +680,7 @@ const styles: { [key: string]: CSSProperties } = {
     width: "100%",
     display: "block",
     filter: "none",
-    
+
   },
 
   primaryButton: {
@@ -725,7 +716,7 @@ const styles: { [key: string]: CSSProperties } = {
     cursor: 'pointer',
     transition: 'all 0.3s',
   },
-  
+
   // Sections
   section: {
     padding: '5rem 1.5rem',
@@ -755,7 +746,7 @@ const styles: { [key: string]: CSSProperties } = {
     margin: 'auto',
     textTransform: "uppercase"
   },
-  
+
   // About
   aboutText: {
     fontSize: 'clamp(1rem, 1.6vw, 1.125rem)',
@@ -763,7 +754,7 @@ const styles: { [key: string]: CSSProperties } = {
     width: 'min(77%, 95%)',
     margin: 'auto'
   },
-  
+
   // Filters
   filterContainer: {
     display: 'flex',
@@ -792,7 +783,7 @@ const styles: { [key: string]: CSSProperties } = {
     border: 'none',
     cursor: 'pointer',
   },
-  
+
   // Projects
   projectsGrid: {
     display: 'grid',
@@ -850,7 +841,7 @@ const styles: { [key: string]: CSSProperties } = {
     border: 'none',
     cursor: 'pointer',
   },
-  
+
   // Expertises
   expertisesGrid: {
     display: 'flex',
@@ -929,7 +920,7 @@ const styles: { [key: string]: CSSProperties } = {
   },
   expertiseContent: {
     display: 'flex',
-    
+
   },
   expertiseIconContainer: {
     flexShrink: 0,
@@ -947,7 +938,7 @@ const styles: { [key: string]: CSSProperties } = {
   expertiseDescription: {
     color: '#4b5563',
   },
-  
+
   // Certifications
   certificationContainer: {
     position: 'relative',
@@ -976,7 +967,7 @@ const styles: { [key: string]: CSSProperties } = {
   dotActive: {
     backgroundColor: '#3b82f6',
   },
-  
+
   // Tools
   toolsList: {
     display: 'flex',
@@ -1004,7 +995,7 @@ const styles: { [key: string]: CSSProperties } = {
     alignItems: 'center',
     justifyContent: 'center'
   },
-  
+
   // Footer
   footer: {
     backgroundColor: '#27272a',
@@ -1094,7 +1085,7 @@ const styles: { [key: string]: CSSProperties } = {
   footerDesigner: {
     fontWeight: '600',
   },
-  
+
   // Menu Dropdown
   dropdownMenu: {
     position: 'absolute',

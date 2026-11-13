@@ -35,74 +35,58 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, style, onOpenModal }
       <div style={styles.statusBadge}>
         {project.status}
       </div>
-      
+
       <div style={styles.cardContent}>
         <div style={styles.cardProjectDescription}>
-            <div style={styles.tagsContainer}>
-                {project.tags.map((tag, idx) => (
-                <span key={idx} style={styles.tag}>
-                    {tag}
-                </span>
-                ))}
-            </div>
-            
-            <h3 style={styles.cardTitle}>{project.title}</h3>
-            <p style={styles.cardDescription}>{project.description}</p>
-            <div style={styles.cardButtonActions}>
-              {
-                project.isShowing === "github" && project.github ? (
-                  <a href={project.github} target="_blank" rel="noopener noreferrer">
+          <div style={styles.tagsContainer}>
+            {project.tags.map((tag, idx) => (
+              <span key={idx} style={styles.tag}>
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <h3 style={styles.cardTitle}>{project.title}</h3>
+          <p style={styles.cardDescription}>{project.description}</p>
+          <div style={styles.cardButtonActions}>
+            {
+              project.isShowing === "apk" && project.apk ? (
+                <button
+                  style={{
+                    ...styles.secondaryButton,
+                    opacity: project.apk ? 1 : 0.5,
+                    cursor: project.apk ? "pointer" : "not-allowed"
+                  }}
+                  disabled={!project.apk}
+                  onClick={() => onOpenModal(project)}
+                >
+                  <span>Télécharger</span>
+                  <Download absoluteStrokeWidth size={18} />
+                </button>
+              ) :
+                project.isShowing === "link" ?
+                  <a href={project.link} target="_blank" rel="noopener noreferrer">
                     <button
                       style={{
                         ...styles.secondaryButton,
-                        opacity: project.github ? 1 : 0.5,
-                        cursor: project.github ? "pointer" : "not-allowed"
+                        opacity: project.link ? 1 : 0.5,
+                        cursor: project.link ? "pointer" : "not-allowed"
                       }}
-                      disabled={!project.github}
-                      // onClick={onOpenModal}
+                      disabled={!project.link}
                     >
-                      <span>Github</span>
-                      <Github absoluteStrokeWidth size={18} />
+                      <span>Voir</span>
+                      <ArrowUpRight absoluteStrokeWidth size={18} />
                     </button>
                   </a>
+                  : null
+            }
 
-                ) : project.isShowing === "apk" && project.apk ? (
-                  <button
-                    style={{
-                      ...styles.secondaryButton,
-                      opacity: project.apk ? 1 : 0.5,
-                      cursor: project.apk ? "pointer" : "not-allowed"
-                    }}
-                    disabled={!project.apk}
-                    onClick={() => onOpenModal(project)}
-                  >
-                    <span>Télécharger</span>
-                    <Download absoluteStrokeWidth size={18} />
-                  </button>
-                ) : 
-                project.isShowing === "link" ?
-                <a href={project.link} target="_blank" rel="noopener noreferrer">
-                  <button
-                    style={{
-                      ...styles.secondaryButton,
-                      opacity: project.link ? 1 : 0.5,
-                      cursor: project.link ? "pointer" : "not-allowed"
-                    }}
-                    disabled={!project.link}
-                  >
-                    <span>Voir</span>
-                    <ArrowUpRight absoluteStrokeWidth size={18} />
-                  </button>
-                </a> 
-                : null
-              }
 
-              
-              <button style={styles.detailsButton} onClick={() => onOpenModal(project)}>
-                  <span>Détails</span>
-                  <ArrowUpRight absoluteStrokeWidth size={18}/>
-              </button>
-            </div>
+            <button style={styles.detailsButton} onClick={() => onOpenModal(project)}>
+              <span>Détails</span>
+              <ArrowUpRight absoluteStrokeWidth size={18} />
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -122,11 +106,11 @@ interface ProjectDetailsModalProps {
 
 const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClose, project }) => {
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
-  
+
   useEffect(() => {
     setSelectedImageIndex(0);
   }, [project]);
-  
+
   if (!isOpen || !project) return null;
 
   const images = project.images && project.images.length > 0 ? project.images : [project.image];
@@ -152,24 +136,24 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
         </button>
 
         <div style={styles.projectModalBody}>
-          <div style={{width: '52%',}}>
+          <div style={{ width: '52%', }}>
             <div style={styles.mainImageContainer}>
-              <img 
-                src={currentImage} 
+              <img
+                src={currentImage}
                 alt={`${project.title} - Vue principale`}
                 style={styles.mainImage}
               />
               {images.length > 1 && (
                 <>
-                  <button 
-                    style={{...styles.imageNavButton, left: '16px'}}
+                  <button
+                    style={{ ...styles.imageNavButton, left: '16px' }}
                     onClick={handlePrevImage}
                     aria-label="Image précédente"
                   >
                     <MoveLeft size={20} />
                   </button>
-                  <button 
-                    style={{...styles.imageNavButton, right: '16px'}}
+                  <button
+                    style={{ ...styles.imageNavButton, right: '16px' }}
                     onClick={handleNextImage}
                     aria-label="Image suivante"
                   >
@@ -191,8 +175,8 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                       opacity: idx === selectedImageIndex ? 1 : 0.6,
                     }}
                   >
-                    <img 
-                      src={img} 
+                    <img
+                      src={img}
                       alt={`${project.title} - Vue ${idx + 1}`}
                       style={styles.thumbnailImage}
                     />
@@ -200,15 +184,15 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                 ))}
               </div>
             )}
-            
-            
+
+
           </div>
-          
+
 
           <div style={styles.projectDetailsSection}>
             <h2 style={styles.projectModalTitle}>{project.title}</h2>
             <p style={styles.projectModalDescription}>{project.description}</p>
-            
+
             <div style={styles.tagsContainerModal}>
               {project.tags.map((tag, idx) => (
                 <span key={idx} style={styles.tagModal}>
@@ -216,21 +200,7 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                 </span>
               ))}
             </div>
-            <div className='mt-5' style={{display: "flex" ,gap: 10}}>
-              <a href={project.github} target="_blank" rel="noopener noreferrer">
-                <button
-                  style={{
-                    ...styles.secondaryButton,
-                    opacity: project.github ? 1 : 0.5,
-                    cursor: project.github ? "pointer" : "not-allowed"
-                  }}
-                  disabled={!project.github}
-                  // onClick={onOpenModal}
-                >
-                  <span>Github</span>
-                  <Github absoluteStrokeWidth size={18} />
-                </button>
-              </a>
+            <div className='mt-5' style={{ display: "flex", gap: 10 }}>
               {project.isShowing === "link" ?
                 <a href={project.link} target="_blank" rel="noopener noreferrer">
                   <button
@@ -247,10 +217,10 @@ const ProjectDetailsModal: React.FC<ProjectDetailsModalProps> = ({ isOpen, onClo
                     <span>Voir</span>
                     <ArrowUpRight absoluteStrokeWidth size={18} />
                   </button>
-                </a> 
-              : null}
+                </a>
+                : null}
             </div>
-            
+
           </div>
         </div>
       </div>
@@ -267,7 +237,7 @@ const ConstructionModal: React.FC<ModalProps> = ({ isOpen, onClose }) => {
         <button style={styles.closeButton} onClick={onClose}>
           <X size={24} />
         </button>
-        
+
         <div style={styles.modalBody}>
           <div style={styles.emojiContainer}>
             😔
@@ -287,11 +257,11 @@ interface ProjectsSectionProps {
   setFilter?: (filter: string) => void;
 }
 
-const ProjectsSection: React.FC<ProjectsSectionProps> = ({ 
-  filter: externalFilter, 
-  setFilter: externalSetFilter 
+const ProjectsSection: React.FC<ProjectsSectionProps> = ({
+  filter: externalFilter,
+  setFilter: externalSetFilter
 }) => {
-  const [internalFilter, setInternalFilter] = useState("UX/UI Design");
+  const [internalFilter, setInternalFilter] = useState("Tous");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -304,132 +274,52 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   const allProjects: Project[] = [
     {
-      title: "musevibes",
-      description: "Application mobile de streaming musical",
-      image: "/images/musevibes.jpeg",
-      images: ["/images/musevibes.jpeg", "/images/musevibes.jpeg"],
-      tags: ["Figma", "Dart", "Flutter", "PostgreSQL"],
-      gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
-      type: "Mobile",
-      status: "En développement",
-      apk: "",
-      github: "https://github.com/Julio23F/musevibes",
-      isShowing: "github",
-    },
-    {
-      title: "i-TAKALO",
-      description: "Application mobile de don et vente des articles, divers vêtements et autres.",
-      image: "/images/itakalo/itakalo.webp",
+      title: "Portail battant en acier",
+      description: "Fabrication et soudage d'un portail battant en acier, avec finition antirouille et peinture.",
+      image: "/images/portails/portail-battant-1.jpg",
       images: [
-        "/images/itakalo/itakalo.webp", 
-        "/images/itakalo/articles.jpeg",
-        "/images/itakalo/chat.jpeg",
-        "/images/itakalo/login.webp",
-        "/images/itakalo/startscreen.jpeg",
-        "/images/itakalo/logo_itakalo.png",
-        "/images/itakalo/paiement.jpeg",
-        "/images/itakalo/publication.jpeg",
-        "/images/itakalo/updateprofile.jpeg",
-
+        "/images/portails/portail-battant-1.jpg",
+        "/images/portails/portail-battant-2.jpg",
       ],
-      tags: ["Typescript", "React Native", "PostgreSQL", "Django"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
+      tags: ["Acier carbone", "Soudage", "Lecture de plans"],
+      gradient: "linear-gradient(135deg, #d4fc79 0%, #96e6a1 100%)",
+      type: "Portails",
       status: "Terminé",
       apk: "",
-      github: "https://github.com/Julio23F/itakalo-mobile",
-      link: "https://itakalo.site",
-      isShowing: "link",
+      isShowing: "none",
     },
     {
-      title: "domestik",
-      description: "Application mobile collaborative de gestion des tâches",
-      image: "/images/domestik.jpeg",
-      images: ["/images/domestik.jpeg"],
-      tags: ["Figma", "Dart", "Flutter", "Laravel"],
+      title: "Portail coulissant",
+      description: "Assemblage d'un portail coulissant : structure, pointage, soudage et montage des rails.",
+      image: "/images/portails/portail-coulissant-1.jpg",
+      images: ["/images/portails/portail-coulissant-1.jpg"],
+      tags: ["Acier galvanisé", "Assemblage", "Pointage"],
       gradient: "linear-gradient(135deg, #bfdbfe 0%, #ddd6fe 50%, #fbcfe8 100%)",
-      type: "Mobile",
+      type: "Portails",
       status: "Terminé",
       apk: "",
-      github: "https://github.com/Julio23F/domestiK",
-      isShowing: "github",
-
+      isShowing: "none",
     },
     {
-      title: "Agritech",
-      description: "Solution mobile connectée pour la qualité des produits agricoles",
-      image: "/images/agritech.jpeg",
-      images: ["/images/agritech.jpeg", "/images/agritech.jpeg"],
-      tags: ["Figma", "React Native", "Firebase"],
+      title: "Structure métallique",
+      description: "Fabrication d'une structure en acier à partir de plans : découpe, ajustage, soudage et contrôle visuel.",
+      image: "/images/structures/structure-1.jpg",
+      images: ["/images/structures/structure-1.jpg"],
+      tags: ["Acier", "Meulage", "Contrôle de la qualité"],
       gradient: "linear-gradient(135deg, #bbf7d0 0%, #bfdbfe 50%, #ddd6fe 100%)",
-      type: "Mobile",
+      type: "Structures",
       status: "Terminé",
       apk: "",
-      github: "https://github.com/Julio23F/agri_tech",
-      isShowing: "none",
-
-    },
-    {
-      title: "youstudy",
-      description: "Projet réalisé pour faciliter l'étude en ligne. L'objectif du site est de connecter les enseignants avec les étudiants.",
-      image: "/images/youstudy.jpeg",
-      images: ["/images/youstudy.jpeg"],
-      tags: ["Wireframe", "HTML CSS", "Components", "User interface", "Prototype", "Figma"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
-      status: "Terminé",
-      apk: "",
-      github: "",
       isShowing: "none",
     },
-    {
-      title: "portfolio",
-      description: "C'était mon tout premier portfolio. Je l'ai conçu et réalisé uniquement avec HTML et CSS.",
-      image: "/images/portfolio.jpeg",
-      images: ["/images/portfolio.jpeg"],
-      tags: ["Wireframe", "HTML & CSS", "User interface", "Prototype", "Figma"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
-      status: "Terminé",
-      apk: "",
-      github: "",
-      isShowing: "none",
-    },
-    {
-      title: "portfolio2",
-      description: "C'était mon second portfolio, dans lequel j'ai apporté plusieurs améliorations par rapport à la première version.",
-      image: "/images/portfolio2.png",
-      images: ["/images/portfolio2.png"],
-      tags: ["Wireframe", "React Js", "Components", "User interface", "Prototype", "Figma"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
-      status: "Terminé",
-      apk: "",
-      github: "",
-      isShowing: "none",
-    },
-    {
-      title: "velya",
-      description: "Site web d'une ESN. J'ai voulu créer une startup, et ce site a été conçu pour la représenter en ligne.",
-      image: "/images/velya.png",
-      images: ["/images/velya.png"],
-      tags: ["React Js", "Components", "User interface", "Prototype", "Figma"],
-      gradient: "linear-gradient(135deg, #d8b4fe 0%, #fbcfe8 50%, #fef08a 100%)",
-      type: "Web",
-      status: "Terminé",
-      apk: "",
-      github: "https://github.com/Julio23F/velya",
-      isShowing: "github",
-    },
-
-
   ];
 
-  const filters = ["UX/UI Design", "Web", "Mobile"];
+  const filters = ["Tous", "Portails", "Structures"];
 
-  const filteredProjects = filter === "UX/UI Design" 
-    ? allProjects 
+  const filteredProjects = filter === "Tous"
+    ? allProjects
     : allProjects.filter(project => project.type.toLowerCase() === filter.toLowerCase());
+
 
   useEffect(() => {
     setCurrentIndex(0);
@@ -467,7 +357,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   useEffect(() => {
     if (filteredProjects.length === 0) return;
-    
+
     const interval = setInterval(() => {
       goToNext();
     }, 5000);
@@ -518,10 +408,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   if (filteredProjects.length === 0) {
     return (
-      <section style={{...styles.section, padding: '60px 200px',}}>
+      <section style={{ ...styles.section, padding: '60px 200px', }}>
         <div style={styles.container}>
           <h2 style={styles.sectionTitle}>PROJETS</h2>
-          
+
           <div style={styles.filterContainer}>
             {filters.map((filterOption) => (
               <button
@@ -544,10 +434,10 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
 
   return (
     <>
-      <section style={{...styles.section, ...(isSmallScreen ? {padding: '60px 0px'} : {})}} id="projects">
-        <div style={{...styles.container}}>
+      <section style={{ ...styles.section, ...(isSmallScreen ? { padding: '60px 0px' } : {}) }} id="projects">
+        <div style={{ ...styles.container }}>
           <h2 style={styles.sectionTitle}>PROJETS</h2>
-          
+
           <div style={styles.filterContainer}>
             {filters.map((filterOption) => (
               <button
@@ -560,7 +450,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             ))}
           </div>
 
-          <div style={{...styles.carouselWrapper}}>
+          <div style={{ ...styles.carouselWrapper }}>
             {!isSmallScreen && filteredProjects.length > 1 && (
               <button onClick={goToPrev} style={styles.navButton}>
                 <MoveLeft absoluteStrokeWidth size={18} />
@@ -568,7 +458,7 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
             )}
 
             <div
-              style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', paddingLeft: '2px', paddingRight: '2px', boxSizing: 'border-box'} : styles.carouselContainer}
+              style={isSmallScreen ? { ...styles.carouselContainer, overflowX: 'auto', WebkitOverflowScrolling: 'touch', scrollSnapType: 'x mandatory', scrollBehavior: 'smooth', paddingLeft: '2px', paddingRight: '2px', boxSizing: 'border-box' } : styles.carouselContainer}
               ref={carouselRef}
             >
               <div
@@ -614,8 +504,8 @@ const ProjectsSection: React.FC<ProjectsSectionProps> = ({
         </div>
       </section>
 
-      <ProjectDetailsModal 
-        isOpen={isModalOpen} 
+      <ProjectDetailsModal
+        isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
           setSelectedProject(null);
