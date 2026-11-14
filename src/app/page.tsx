@@ -6,6 +6,10 @@ import { Download, ArrowUpRight } from "lucide-react"
 import ProjectsSection from './ProjectsSection'
 import BehindScenesSection from "@/components/BehindScenesSection";
 import AnimatedCTA from "@/components/ui/AnimatedCTA";
+
+import { Analytics } from "@vercel/analytics/next"
+
+
 const karantina = Karantina({
   weight: ['400'],
   subsets: ['latin'],
@@ -548,6 +552,8 @@ export default function Home() {
       <ToolsSection filter={toolFilter} setFilter={setToolFilter} />
       <BehindScenesSection />
       <Footer />
+
+      <Analytics/>
     </main>
   );
 }
